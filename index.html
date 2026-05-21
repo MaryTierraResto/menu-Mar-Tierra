@@ -129,72 +129,16 @@
             font-weight: 600;
         }
 
-        const catalogo = [
-    // ENTRADAS
-    { id: 'rabas', cat: 'ENTRADAS', nombre: 'Rabas a la marinera', precio: 16000 },
-    { id: 'langostinos', cat: 'ENTRADAS', nombre: 'Crocante de Langostinos', precio: 17200 },
-    { id: 'provoleta', cat: 'ENTRADAS', nombre: 'Provoleta especiada', precio: 11800 },
-    { id: 'provoleta_rellena', cat: 'ENTRADAS', nombre: 'Provoleta rellena', precio: 13000 },
-    { id: 'bastoncitos', cat: 'ENTRADAS', nombre: 'Bastoncitos de queso', precio: 11000 },
-    { id: 'empanadas', cat: 'ENTRADAS', nombre: 'Empanadas (unidad)', precio: 3500 },
-
-    // ENSALADAS
-    { id: 'ens_mixta', cat: 'ENSALADAS', nombre: 'Ensalada Mixta', precio: 4200 },
-    { id: 'ens_tricolor', cat: 'ENSALADAS', nombre: 'Ensalada Tricolor', precio: 4200 },
-    { id: 'ens_duo', cat: 'ENSALADAS', nombre: 'Ensalada Duo', precio: 4200 },
-    { id: 'ens_rucula', cat: 'ENSALADAS', nombre: 'Rúcula con parmesano', precio: 4200 },
-    { id: 'ens_arcoiris', cat: 'ENSALADAS', nombre: 'Ensalada Arcoiris', precio: 8200 },
-    { id: 'ens_mar_tierra', cat: 'ENSALADAS', nombre: 'Ensalada Mar & Tierra', precio: 12600 },
-    { id: 'ens_cesar', cat: 'ENSALADAS', nombre: 'Ensalada César', precio: 12600 },
-
-    // CARNES BLANCAS
-    { id: 'sup_toscana', cat: 'CARNES BLANCAS', nombre: 'Suprema a la toscana c/papas', precio: 16800 },
-    { id: 'sup_mar_tierra', cat: 'CARNES BLANCAS', nombre: 'Suprema Mar & Tierra c/papas', precio: 15700 },
-    { id: 'sup_maryland', cat: 'CARNES BLANCAS', nombre: 'Suprema Maryland c/papas', precio: 15700 },
-    { id: 'sup_pollo', cat: 'CARNES BLANCAS', nombre: 'Suprema de pollo', precio: 8800 },
-    { id: 'sup_napo', cat: 'CARNES BLANCAS', nombre: 'Suprema de pollo napolitana', precio: 10300 },
-    { id: 'cuarto_ave', cat: 'CARNES BLANCAS', nombre: 'Cuarto de ave deshuesado', precio: 8800 },
-    { id: 'cerdo_riojana', cat: 'CARNES BLANCAS', nombre: 'Carré de cerdo a la Riojana', precio: 15800 },
-    { id: 'cerdo_mostaza', cat: 'CARNES BLANCAS', nombre: 'Carré de cerdo a la mostaza', precio: 15800 },
-    { id: 'cerdo_miel', cat: 'CARNES BLANCAS', nombre: 'Carré de cerdo a la miel', precio: 15800 },
-    { id: 'bondiola_azul', cat: 'CARNES BLANCAS', nombre: 'Bondiola en queso azul', precio: 15800 },
-    { id: 'cerdo_grille', cat: 'CARNES BLANCAS', nombre: 'Carré o bondiola grillé', precio: 9600 },
-    { id: 'salsa_blancas', cat: 'CARNES BLANCAS', nombre: 'Salsas (adicional)', precio: 3900 },
-
-    // CARNES ROJAS
-    { id: 'ojo_bife', cat: 'CARNES ROJAS', nombre: 'Ojo de bife bridado', precio: 19400 },
-    { id: 'entrecotte_mont', cat: 'CARNES ROJAS', nombre: 'Entrecotte montañés', precio: 18000 },
-    { id: 'escalope', cat: 'CARNES ROJAS', nombre: 'Escalope relleno al oporto', precio: 20300 },
-    { id: 'mila_ternera', cat: 'CARNES ROJAS', nombre: 'Milanesa de ternera', precio: 8800 },
-    { id: 'mila_napo_ternera', cat: 'CARNES ROJAS', nombre: 'Milanesa de ternera napo', precio: 10600 },
-    { id: 'mila_toscana', cat: 'CARNES ROJAS', nombre: 'Milanesa a la toscana', precio: 17400 },
-    { id: 'costeleta', cat: 'CARNES ROJAS', nombre: 'Costeleta', precio: 9000 },
-    { id: 'entrecotte', cat: 'CARNES ROJAS', nombre: 'Entrecotte', precio: 13500 },
-    { id: 'bife_chorizo', cat: 'CARNES ROJAS', nombre: 'Bife de chorizo', precio: 23000 },
-
-    // PASTAS
-    { id: 'tagliatelles', cat: 'PASTAS', nombre: 'Tagliatelles frutti di mare', precio: 15500 },
-    { id: 'lasagna_mar', cat: 'PASTAS', nombre: 'Lasagna de mar', precio: 11500 },
-    { id: 'sorrentinos_salmon', cat: 'PASTAS', nombre: 'Sorrentinos de Salmón', precio: 10400 },
-    { id: 'sorrentinos_calabaza', cat: 'PASTAS', nombre: 'Sorrentinos calabaza y muzz.', precio: 8300 },
-    { id: 'sorrentinos_ricota', cat: 'PASTAS', nombre: 'Sorrentinos ricota, jamón y nuez', precio: 8300 },
-    { id: 'sorrentinos_jyq', cat: 'PASTAS', nombre: 'Sorrentinos jamón y queso', precio: 8300 },
-    { id: 'noquis', cat: 'PASTAS', nombre: 'Ñoquis de papa', precio: 7200 },
-    { id: 'tallarines', cat: 'PASTAS', nombre: 'Tallarines al huevo', precio: 6400 },
-    { id: 'ravioles', cat: 'PASTAS', nombre: 'Ravioles de verdura y carne', precio: 7800 },
-    { id: 'canelones', cat: 'PASTAS', nombre: 'Canelones de verdura y carne', precio: 8700 },
-    { id: 'lasagna_verdura', cat: 'PASTAS', nombre: 'Lasagna de verdura y carne', precio: 9800 },
-
-    // POSTRES
-    { id: 'flan', cat: 'POSTRES', nombre: 'Flan casero', precio: 3300 },
-    { id: 'budin', cat: 'POSTRES', nombre: 'Budín de pan casero', precio: 3300 },
-    { id: 'tiramisu', cat: 'POSTRES', nombre: 'Tiramisú', precio: 5000 },
-    { id: 'brownie', cat: 'POSTRES', nombre: 'Brownie con helado', precio: 5500 },
-    { id: 'peras', cat: 'POSTRES', nombre: 'Peras al Merlot', precio: 4800 },
-    { id: 'panqueque', cat: 'POSTRES', nombre: 'Panqueque dulce de leche', precio: 5000 },
-    { id: 'copa_mt', cat: 'POSTRES', nombre: 'Copa Mar & Tierra', precio: 5700 },
-    { id: 'copa_africana', cat: 'POSTRES', nombre: 'Copa Africana', precio: 5700 }
-];
+        .producto-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(34, 34, 34, 0.85); 
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #2d2d2d;
+            border-left: 4px solid #E28F83;
         }
 
         .producto-info h3 {
@@ -334,72 +278,411 @@
 
     <div class="seccion-menu">
         
-        <div class="categoria-titulo">MINUTAS Y PLATOS</div>
-        
+        <div class="categoria-titulo">ENTRADAS</div>
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Milanesa ternera + guarnición</h3>
-                <p>$15.000</p>
-            </div>
-            <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('milaTernera', -1)">-</button>
-                <span id="cant-milaTernera" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('milaTernera', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="producto-card">
-            <div class="producto-info">
-                <h3>Milanesa Napo + guarnición</h3>
-                <p>$16.500</p>
-            </div>
-            <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('milaNapo', -1)">-</button>
-                <span id="cant-milaNapo" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('milaNapo', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="producto-card">
-            <div class="producto-info">
-                <h3>Merluza a la romana + guarnición</h3>
-                <p>$12.000</p>
-            </div>
-            <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('merluza', -1)">-</button>
-                <span id="cant-merluza" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('merluza', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="producto-card">
-            <div class="producto-info">
-                <h3>Ojo de bife</h3>
-                <p>$15.000</p>
-            </div>
-            <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('ojoBife', -1)">-</button>
-                <span id="cant-ojoBife" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('ojoBife', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="producto-card">
-            <div class="producto-info">
-                <h3>Cazuela</h3>
+                <h3>Rabas a la marinera</h3>
                 <p>$16.000</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('cazuela', -1)">-</button>
-                <span id="cant-cazuela" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('cazuela', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('rabasALaMarinera', -1)">-</button>
+                <span id="cant-rabasALaMarinera" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('rabasALaMarinera', 1)">+</button>
             </div>
         </div>
-
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Crocante de Langostinos con dip (salsa tabasco y de canela con limón)</h3>
+                <p>$17.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('crocanteDeLangostinosConDipSal', -1)">-</button>
+                <span id="cant-crocanteDeLangostinosConDipSal" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('crocanteDeLangostinosConDipSal', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Provoleta especiada</h3>
+                <p>$11.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('provoletaEspeciada', -1)">-</button>
+                <span id="cant-provoletaEspeciada" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('provoletaEspeciada', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Provoleta rellena (panceta, tomate y albahaca)</h3>
+                <p>$13.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('provoletaRellenaPancetaTomateY', -1)">-</button>
+                <span id="cant-provoletaRellenaPancetaTomateY" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('provoletaRellenaPancetaTomateY', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Bastoncitos de queso rebozados</h3>
+                <p>$11.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('bastoncitosDeQuesoRebozados', -1)">-</button>
+                <span id="cant-bastoncitosDeQuesoRebozados" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('bastoncitosDeQuesoRebozados', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Empanadas (criollas, jamón y queso, queso y cebolla, pescado, choclo)</h3>
+                <p>$3.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('empanadasCriollasJamonYQuesoQu', -1)">-</button>
+                <span id="cant-empanadasCriollasJamonYQuesoQu" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('empanadasCriollasJamonYQuesoQu', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">ENSALADAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Mixta (lechuga, tomate y cebolla)</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('mixtaLechugaTomateYCebolla', -1)">-</button>
+                <span id="cant-mixtaLechugaTomateYCebolla" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('mixtaLechugaTomateYCebolla', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Tricolor (zanahoria, remolacha y huevo)</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('tricolorZanahoriaRemolachaYHue', -1)">-</button>
+                <span id="cant-tricolorZanahoriaRemolachaYHue" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('tricolorZanahoriaRemolachaYHue', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Duo (zanahoria o rúcula con huevo)</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('duoZanahoriaORuculaConHuevo', -1)">-</button>
+                <span id="cant-duoZanahoriaORuculaConHuevo" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('duoZanahoriaORuculaConHuevo', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Rúcula con lluvia de parmesano</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('ruculaConLluviaDeParmesano', -1)">-</button>
+                <span id="cant-ruculaConLluviaDeParmesano" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('ruculaConLluviaDeParmesano', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Arcoiris (lechuga, zanahoria, remolacha, tomate, papa y choclo)</h3>
+                <p>$8.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('arcoirisLechugaZanahoriaRemola', -1)">-</button>
+                <span id="cant-arcoirisLechugaZanahoriaRemola" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('arcoirisLechugaZanahoriaRemola', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Mar & Tierra (hojas verdes, croutons, cherries, crocante de panceta, cebolla, queso en cubos y ave)</h3>
+                <p>$12.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('marTierraHojasVerdesCroutonsCh', -1)">-</button>
+                <span id="cant-marTierraHojasVerdesCroutonsCh" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('marTierraHojasVerdesCroutonsCh', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>César</h3>
+                <p>$12.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('cesar', -1)">-</button>
+                <span id="cant-cesar" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cesar', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">CARNES BLANCAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Suprema a la toscana con papas (mozarella gratinada y champiñones a la provenzal)</h3>
+                <p>$16.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaALaToscanaConPapasMozar', -1)">-</button>
+                <span id="cant-supremaALaToscanaConPapasMozar" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaALaToscanaConPapasMozar', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Suprema Mar & Tierra con papas (salsa de quesos, zanahoria y arveja)</h3>
+                <p>$15.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaMarTierraConPapasSalsaD', -1)">-</button>
+                <span id="cant-supremaMarTierraConPapasSalsaD" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaMarTierraConPapasSalsaD', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Suprema Maryland c/papas</h3>
+                <p>$15.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaMarylandCPapas', -1)">-</button>
+                <span id="cant-supremaMarylandCPapas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaMarylandCPapas', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Suprema de pollo</h3>
+                <p>$8.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaDePollo', -1)">-</button>
+                <span id="cant-supremaDePollo" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaDePollo', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Suprema de pollo a la napolitana</h3>
+                <p>$10.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaDePolloALaNapolitana', -1)">-</button>
+                <span id="cant-supremaDePolloALaNapolitana" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaDePolloALaNapolitana', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Cuarto de ave deshuesado</h3>
+                <p>$8.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('cuartoDeAveDeshuesado', -1)">-</button>
+                <span id="cant-cuartoDeAveDeshuesado" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cuartoDeAveDeshuesado', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Carré de cerdo a la Riojana (jamón cocido, huevo frito, morrones, papas y arvejas)</h3>
+                <p>$15.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreDeCerdoALaRiojanaJamonCoc', -1)">-</button>
+                <span id="cant-carreDeCerdoALaRiojanaJamonCoc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreDeCerdoALaRiojanaJamonCoc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Carré de cerdo a la mostaza con papas</h3>
+                <p>$15.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreDeCerdoALaMostazaConPapas', -1)">-</button>
+                <span id="cant-carreDeCerdoALaMostazaConPapas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreDeCerdoALaMostazaConPapas', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Carré de cerdo a la miel con puré rústico</h3>
+                <p>$15.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreDeCerdoALaMielConPureRust', -1)">-</button>
+                <span id="cant-carreDeCerdoALaMielConPureRust" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreDeCerdoALaMielConPureRust', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Bondiola de cerdo en queso azul con chop suey</h3>
+                <p>$15.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('bondiolaDeCerdoEnQuesoAzulConC', -1)">-</button>
+                <span id="cant-bondiolaDeCerdoEnQuesoAzulConC" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('bondiolaDeCerdoEnQuesoAzulConC', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Carré o bondiola de cerdo grillé</h3>
+                <p>$9.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreOBondiolaDeCerdoGrille', -1)">-</button>
+                <span id="cant-carreOBondiolaDeCerdoGrille" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('carreOBondiolaDeCerdoGrille', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Salsas (mostaza, queso azul o verdeo)</h3>
+                <p>$3.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('salsasMostazaQuesoAzulOVerdeo', -1)">-</button>
+                <span id="cant-salsasMostazaQuesoAzulOVerdeo" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('salsasMostazaQuesoAzulOVerdeo', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">CARNES ROJAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Ojo de bife bridado con jamón serrano a la pimienta con papas a la crema</h3>
+                <p>$19.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('ojoDeBifeBridadoConJamonSerran', -1)">-</button>
+                <span id="cant-ojoDeBifeBridadoConJamonSerran" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('ojoDeBifeBridadoConJamonSerran', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Entrecotte montañés con papas (morrones, mozzarella y jamón serrano con salsa demiglace)</h3>
+                <p>$18.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('entrecotteMontanesConPapasMorr', -1)">-</button>
+                <span id="cant-entrecotteMontanesConPapasMorr" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('entrecotteMontanesConPapasMorr', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Escalope relleno al oporto y jerez con ensalada de verano</h3>
+                <p>$20.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('escalopeRellenoAlOportoYJerezC', -1)">-</button>
+                <span id="cant-escalopeRellenoAlOportoYJerezC" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('escalopeRellenoAlOportoYJerezC', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Milanesa de ternera</h3>
+                <p>$8.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaDeTernera', -1)">-</button>
+                <span id="cant-milanesaDeTernera" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaDeTernera', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Milanesa de ternera a la napolitana</h3>
+                <p>$10.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaDeTerneraALaNapolitana', -1)">-</button>
+                <span id="cant-milanesaDeTerneraALaNapolitana" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaDeTerneraALaNapolitana', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Milanesa a la toscana con guarnición</h3>
+                <p>$17.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaALaToscanaConGuarnicio', -1)">-</button>
+                <span id="cant-milanesaALaToscanaConGuarnicio" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaALaToscanaConGuarnicio', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Costeleta</h3>
+                <p>$9.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('costeleta', -1)">-</button>
+                <span id="cant-costeleta" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('costeleta', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Entrecotte</h3>
+                <p>$13.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('entrecotte', -1)">-</button>
+                <span id="cant-entrecotte" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('entrecotte', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Bife de chorizo con guarnición</h3>
+                <p>$23.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('bifeDeChorizoConGuarnicion', -1)">-</button>
+                <span id="cant-bifeDeChorizoConGuarnicion" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('bifeDeChorizoConGuarnicion', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Salsas (mostaza, queso azul o verdeo)</h3>
+                <p>$3.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('salsasMostazaQuesoAzulOVerdeo2', -1)">-</button>
+                <span id="cant-salsasMostazaQuesoAzulOVerdeo2" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('salsasMostazaQuesoAzulOVerdeo2', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">PESCADOS Y MARISCOS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Paella</h3>
+                <p>$19.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('paella', -1)">-</button>
+                <span id="cant-paella" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('paella', 1)">+</button>
+            </div>
+        </div>
         <div class="producto-card">
             <div class="producto-info">
                 <h3>Mariscada</h3>
-                <p>$16.000</p>
+                <p>$18.200</p>
             </div>
             <div class="control-cantidad">
                 <button class="btn-cantidad" onclick="cambiarCantidad('mariscada', -1)">-</button>
@@ -407,92 +690,1290 @@
                 <button class="btn-cantidad" onclick="cambiarCantidad('mariscada', 1)">+</button>
             </div>
         </div>
-
-        <div class="categoria-titulo">BEBIDAS</div>
-
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Coca 500ml</h3>
-                <p>$4.000</p>
+                <h3>Langostinos al ajillo c/papas locas</h3>
+                <p>$20.700</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('coca', -1)">-</button>
-                <span id="cant-coca" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('coca', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('langostinosAlAjilloCPapasLocas', -1)">-</button>
+                <span id="cant-langostinosAlAjilloCPapasLocas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('langostinosAlAjilloCPapasLocas', 1)">+</button>
             </div>
         </div>
-
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Sprite 500ml</h3>
-                <p>$4.000</p>
+                <h3>Cazuela de mariscos</h3>
+                <p>$18.200</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('sprite', -1)">-</button>
-                <span id="cant-sprite" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('sprite', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cazuelaDeMariscos', -1)">-</button>
+                <span id="cant-cazuelaDeMariscos" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cazuelaDeMariscos', 1)">+</button>
             </div>
         </div>
-
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Fanta 500ml</h3>
-                <p>$4.000</p>
+                <h3>Mejillones a la crema c/papas locas</h3>
+                <p>$16.800</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('fanta', -1)">-</button>
-                <span id="cant-fanta" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('fanta', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('mejillonesALaCremaCPapasLocas', -1)">-</button>
+                <span id="cant-mejillonesALaCremaCPapasLocas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('mejillonesALaCremaCPapasLocas', 1)">+</button>
             </div>
         </div>
-
-        <div class="categoria-titulo">POSTRES Y ADICIONALES</div>
-
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Flan Solo</h3>
-                <p>$3.000</p>
+                <h3>Abadejo al verdeo con papas rejilla</h3>
+                <p>$19.500</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('flan', -1)">-</button>
-                <span id="cant-flan" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('flan', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('abadejoAlVerdeoConPapasRejilla', -1)">-</button>
+                <span id="cant-abadejoAlVerdeoConPapasRejilla" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('abadejoAlVerdeoConPapasRejilla', 1)">+</button>
             </div>
         </div>
-
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Adicional: Dulce de leche</h3>
+                <h3>Abadejo en perfume de olivas y ajo sobre bouquet verde y zapallo grillado</h3>
+                <p>$19.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('abadejoEnPerfumeDeOlivasYAjoSo', -1)">-</button>
+                <span id="cant-abadejoEnPerfumeDeOlivasYAjoSo" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('abadejoEnPerfumeDeOlivasYAjoSo', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Trucha del sur al limón y pimienta negra</h3>
+                <p>$21.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('truchaDelSurAlLimonYPimientaNe', -1)">-</button>
+                <span id="cant-truchaDelSurAlLimonYPimientaNe" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('truchaDelSurAlLimonYPimientaNe', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Trucha rellena con papas gratinadas</h3>
+                <p>$22.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('truchaRellenaConPapasGratinada', -1)">-</button>
+                <span id="cant-truchaRellenaConPapasGratinada" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('truchaRellenaConPapasGratinada', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Pacú con salsa criolla y puré rústico</h3>
+                <p>$20.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('pacuConSalsaCriollaYPureRustic', -1)">-</button>
+                <span id="cant-pacuConSalsaCriollaYPureRustic" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('pacuConSalsaCriollaYPureRustic', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Boga capresse con puré moscado</h3>
+                <p>$23.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('bogaCapresseConPureMoscado', -1)">-</button>
+                <span id="cant-bogaCapresseConPureMoscado" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('bogaCapresseConPureMoscado', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Dorado c/salsa criolla y guarnición</h3>
+                <p>$23.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('doradoCSalsaCriollaYGuarnicion', -1)">-</button>
+                <span id="cant-doradoCSalsaCriollaYGuarnicion" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('doradoCSalsaCriollaYGuarnicion', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Salmón rosado grillado c/guarnición</h3>
+                <p>$24.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('salmonRosadoGrilladoCGuarnicio', -1)">-</button>
+                <span id="cant-salmonRosadoGrilladoCGuarnicio" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('salmonRosadoGrilladoCGuarnicio', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Merluza a la romana c/guarnición</h3>
+                <p>$12.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('merluzaALaRomanaCGuarnicion', -1)">-</button>
+                <span id="cant-merluzaALaRomanaCGuarnicion" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('merluzaALaRomanaCGuarnicion', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Merluza al verdeo con papas</h3>
+                <p>$14.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('merluzaAlVerdeoConPapas', -1)">-</button>
+                <span id="cant-merluzaAlVerdeoConPapas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('merluzaAlVerdeoConPapas', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">NUESTRAS PASTAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Tagliatelles de espinaca al frutti di mare</h3>
+                <p>$15.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('tagliatellesDeEspinacaAlFrutti', -1)">-</button>
+                <span id="cant-tagliatellesDeEspinacaAlFrutti" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('tagliatellesDeEspinacaAlFrutti', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Lasagna de mar</h3>
+                <p>$11.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('lasagnaDeMar', -1)">-</button>
+                <span id="cant-lasagnaDeMar" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('lasagnaDeMar', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Sorrentinos de Salmon</h3>
+                <p>$10.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeSalmon', -1)">-</button>
+                <span id="cant-sorrentinosDeSalmon" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeSalmon', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Sorrentinos de calabaza y muzzarella</h3>
+                <p>$8.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeCalabazaYMuzzarel', -1)">-</button>
+                <span id="cant-sorrentinosDeCalabazaYMuzzarel" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeCalabazaYMuzzarel', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Sorrentinos de ricota, jamón y nuez</h3>
+                <p>$8.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeRicotaJamonYNuez', -1)">-</button>
+                <span id="cant-sorrentinosDeRicotaJamonYNuez" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeRicotaJamonYNuez', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Sorrentinos de jamón y queso</h3>
+                <p>$8.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeJamonYQueso', -1)">-</button>
+                <span id="cant-sorrentinosDeJamonYQueso" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('sorrentinosDeJamonYQueso', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Ñoquis de papa</h3>
+                <p>$7.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('noquisDePapa', -1)">-</button>
+                <span id="cant-noquisDePapa" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('noquisDePapa', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Tallarines al huevo</h3>
+                <p>$6.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('tallarinesAlHuevo', -1)">-</button>
+                <span id="cant-tallarinesAlHuevo" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('tallarinesAlHuevo', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Ravioles de verdura y carne</h3>
+                <p>$7.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('raviolesDeVerduraYCarne', -1)">-</button>
+                <span id="cant-raviolesDeVerduraYCarne" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('raviolesDeVerduraYCarne', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Canelones de verdura y carne</h3>
+                <p>$8.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('canelonesDeVerduraYCarne', -1)">-</button>
+                <span id="cant-canelonesDeVerduraYCarne" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('canelonesDeVerduraYCarne', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Lasagna de verdura y carne</h3>
+                <p>$9.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('lasagnaDeVerduraYCarne', -1)">-</button>
+                <span id="cant-lasagnaDeVerduraYCarne" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('lasagnaDeVerduraYCarne', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">SALSAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Tuco</h3>
+                <p>$3.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('tuco', -1)">-</button>
+                <span id="cant-tuco" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('tuco', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Fileto</h3>
+                <p>$3.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('fileto', -1)">-</button>
+                <span id="cant-fileto" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('fileto', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Bolognesa</h3>
+                <p>$3.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('bolognesa', -1)">-</button>
+                <span id="cant-bolognesa" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('bolognesa', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Mixta o crema</h3>
+                <p>$3.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('mixtaOCrema', -1)">-</button>
+                <span id="cant-mixtaOCrema" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('mixtaOCrema', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Roquefort o verdeo</h3>
+                <p>$3.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('roquefortOVerdeo', -1)">-</button>
+                <span id="cant-roquefortOVerdeo" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('roquefortOVerdeo', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Holandesa</h3>
+                <p>$4.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('holandesa', -1)">-</button>
+                <span id="cant-holandesa" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('holandesa', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Champignon</h3>
+                <p>$4.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('champignon', -1)">-</button>
+                <span id="cant-champignon" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('champignon', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Crema de camarones</h3>
+                <p>$6.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('cremaDeCamarones', -1)">-</button>
+                <span id="cant-cremaDeCamarones" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cremaDeCamarones', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Frutos de mar</h3>
+                <p>$8.100</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('frutosDeMar', -1)">-</button>
+                <span id="cant-frutosDeMar" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('frutosDeMar', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Adicional de peceto</h3>
+                <p>$6.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('adicionalDePeceto', -1)">-</button>
+                <span id="cant-adicionalDePeceto" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('adicionalDePeceto', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">GUARNICIONES</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Papas fritas bastón</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasFritasBaston', -1)">-</button>
+                <span id="cant-papasFritasBaston" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasFritasBaston', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Papas fritas carre</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasFritasCarre', -1)">-</button>
+                <span id="cant-papasFritasCarre" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasFritasCarre', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Papas naturales</h3>
+                <p>$3.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasNaturales', -1)">-</button>
+                <span id="cant-papasNaturales" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasNaturales', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Puré de papas</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('pureDePapas', -1)">-</button>
+                <span id="cant-pureDePapas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('pureDePapas', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Puré de calabacín</h3>
+                <p>$4.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('pureDeCalabacin', -1)">-</button>
+                <span id="cant-pureDeCalabacin" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('pureDeCalabacin', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Puré mixto (calabacín y papas)</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('pureMixtoCalabacinYPapas', -1)">-</button>
+                <span id="cant-pureMixtoCalabacinYPapas" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('pureMixtoCalabacinYPapas', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Papas a la crema</h3>
+                <p>$4.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasALaCrema', -1)">-</button>
+                <span id="cant-papasALaCrema" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('papasALaCrema', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Chop Suey</h3>
+                <p>$4.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('chopSuey', -1)">-</button>
+                <span id="cant-chopSuey" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('chopSuey', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">POSTRES</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Flan casero</h3>
+                <p>$3.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('flanCasero', -1)">-</button>
+                <span id="cant-flanCasero" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('flanCasero', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Budín de pan casero</h3>
+                <p>$3.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('budinDePanCasero', -1)">-</button>
+                <span id="cant-budinDePanCasero" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('budinDePanCasero', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Tiramisú</h3>
+                <p>$5.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('tiramisu', -1)">-</button>
+                <span id="cant-tiramisu" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('tiramisu', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Brownie con helado de crema</h3>
+                <p>$5.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('brownieConHeladoDeCrema', -1)">-</button>
+                <span id="cant-brownieConHeladoDeCrema" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('brownieConHeladoDeCrema', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Peras al Merlot con helado de crema</h3>
+                <p>$4.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('perasAlMerlotConHeladoDeCrema', -1)">-</button>
+                <span id="cant-perasAlMerlotConHeladoDeCrema" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('perasAlMerlotConHeladoDeCrema', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Panqueque de dulce de leche con helado de crema</h3>
+                <p>$5.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('panquequeDeDulceDeLecheConHela', -1)">-</button>
+                <span id="cant-panquequeDeDulceDeLecheConHela" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('panquequeDeDulceDeLecheConHela', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Helado (bocha individual)</h3>
+                <p>$2.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('heladoBochaIndividual', -1)">-</button>
+                <span id="cant-heladoBochaIndividual" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('heladoBochaIndividual', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Copa Mar & Tierra (helado de chocolate, crema chantilly, dulce de leche, nueces, almendras tostadas y galletas dulces)</h3>
+                <p>$5.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('copaMarTierraHeladoDeChocolate', -1)">-</button>
+                <span id="cant-copaMarTierraHeladoDeChocolate" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('copaMarTierraHeladoDeChocolate', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Copa Africana (helado de chocolate, brownie, crema moka y crocante de maní con chocolate)</h3>
+                <p>$5.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('copaAfricanaHeladoDeChocolateB', -1)">-</button>
+                <span id="cant-copaAfricanaHeladoDeChocolateB" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('copaAfricanaHeladoDeChocolateB', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Bombón escocés</h3>
+                <p>$4.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('bombonEscoces', -1)">-</button>
+                <span id="cant-bombonEscoces" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('bombonEscoces', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Higos en almíbar con crema o queso</h3>
+                <p>$4.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('higosEnAlmibarConCremaOQueso', -1)">-</button>
+                <span id="cant-higosEnAlmibarConCremaOQueso" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('higosEnAlmibarConCremaOQueso', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Lemonchamp</h3>
+                <p>$7.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('lemonchamp', -1)">-</button>
+                <span id="cant-lemonchamp" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('lemonchamp', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Don Pedro</h3>
+                <p>$7.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('donPedro', -1)">-</button>
+                <span id="cant-donPedro" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('donPedro', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Adicional de crema o dulce</h3>
                 <p>$1.000</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('addDulce', -1)">-</button>
-                <span id="cant-addDulce" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('addDulce', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('adicionalDeCremaODulce', -1)">-</button>
+                <span id="cant-adicionalDeCremaODulce" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('adicionalDeCremaODulce', 1)">+</button>
             </div>
         </div>
-
         <div class="producto-card">
             <div class="producto-info">
-                <h3>Adicional: Crema</h3>
-                <p>$1.000</p>
-            </div>
-            <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('addCrema', -1)">-</button>
-                <span id="cant-addCrema" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('addCrema', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="producto-card">
-            <div class="producto-info">
-                <h3>Adicional: Dulce y crema</h3>
+                <h3>Adicional mixto (crema y dulce)</h3>
                 <p>$1.700</p>
             </div>
             <div class="control-cantidad">
-                <button class="btn-cantidad" onclick="cambiarCantidad('addAmbos', -1)">-</button>
-                <span id="cant-addAmbos" class="numero-cantidad">0</span>
-                <button class="btn-cantidad" onclick="cambiarCantidad('addAmbos', 1)">+</button>
+                <button class="btn-cantidad" onclick="cambiarCantidad('adicionalMixtoCremaYDulce', -1)">-</button>
+                <span id="cant-adicionalMixtoCremaYDulce" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('adicionalMixtoCremaYDulce', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">VINOS TINTOS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Cafayate (Cabernet, Malbec)</h3>
+                <p>$7.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('cafayateCabernetMalbec', -1)">-</button>
+                <span id="cant-cafayateCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cafayateCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Otro Loco Mas (Malbec)</h3>
+                <p>$8.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('otroLocoMasMalbec', -1)">-</button>
+                <span id="cant-otroLocoMasMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('otroLocoMasMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Cordero con Piel de Lobo (Malbec)</h3>
+                <p>$8.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('corderoConPielDeLoboMalbec', -1)">-</button>
+                <span id="cant-corderoConPielDeLoboMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('corderoConPielDeLoboMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Cabernet, Malbec, Syrah, Tempranillo) (3/4)</h3>
+                <p>$8.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCabernetMalbecSyrahT', -1)">-</button>
+                <span id="cant-santaJuliaCabernetMalbecSyrahT" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCabernetMalbecSyrahT', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Cabernet, Malbec, Syrah, Tempranillo) (3/8)</h3>
+                <p>$7.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCabernetMalbecSyrahT2', -1)">-</button>
+                <span id="cant-santaJuliaCabernetMalbecSyrahT2" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCabernetMalbecSyrahT2', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Benjamin (Cabernet, Malbec) (3/4)</h3>
+                <p>$9.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('benjaminCabernetMalbec34', -1)">-</button>
+                <span id="cant-benjaminCabernetMalbec34" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('benjaminCabernetMalbec34', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Benjamin (Cabernet, Malbec) (3/8)</h3>
+                <p>$7.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('benjaminCabernetMalbec38', -1)">-</button>
+                <span id="cant-benjaminCabernetMalbec38" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('benjaminCabernetMalbec38', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Callia Esperado (Cabernet, Syrah-Malbec)</h3>
+                <p>$9.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('calliaEsperadoCabernetSyrahMal', -1)">-</button>
+                <span id="cant-calliaEsperadoCabernetSyrahMal" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('calliaEsperadoCabernetSyrahMal', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Portillo (Cabernet, Malbec, Syrah)</h3>
+                <p>$10.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('portilloCabernetMalbecSyrah', -1)">-</button>
+                <span id="cant-portilloCabernetMalbecSyrah" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('portilloCabernetMalbecSyrah', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Emilia (Cabernet, Malbec) (3/4)</h3>
+                <p>$12.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('emiliaCabernetMalbec34', -1)">-</button>
+                <span id="cant-emiliaCabernetMalbec34" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('emiliaCabernetMalbec34', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Emilia (Cabernet, Malbec) (3/8)</h3>
+                <p>$9.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('emiliaCabernetMalbec38', -1)">-</button>
+                <span id="cant-emiliaCabernetMalbec38" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('emiliaCabernetMalbec38', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Latitud 33 (Cabernet, Malbec, Syrah)</h3>
+                <p>$12.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('latitud33CabernetMalbecSyrah', -1)">-</button>
+                <span id="cant-latitud33CabernetMalbecSyrah" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('latitud33CabernetMalbecSyrah', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Gascon Roble (Cabernet, Malbec)</h3>
+                <p>$12.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('gasconRobleCabernetMalbec', -1)">-</button>
+                <span id="cant-gasconRobleCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('gasconRobleCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia Reserva (Cabernet, Malbec)</h3>
+                <p>$12.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaReservaCabernetMalbe', -1)">-</button>
+                <span id="cant-santaJuliaReservaCabernetMalbe" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaReservaCabernetMalbe', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Cafayate Reserva (Cabernet, Malbec)</h3>
+                <p>$12.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('cafayateReservaCabernetMalbec', -1)">-</button>
+                <span id="cant-cafayateReservaCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cafayateReservaCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Trumpeter (Cabernet, Malbec) (3/4)</h3>
+                <p>$14.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterCabernetMalbec34', -1)">-</button>
+                <span id="cant-trumpeterCabernetMalbec34" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterCabernetMalbec34', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Trumpeter (Cabernet, Malbec) (3/8)</h3>
+                <p>$9.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterCabernetMalbec38', -1)">-</button>
+                <span id="cant-trumpeterCabernetMalbec38" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterCabernetMalbec38', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Escorihuela Gascon (Malbec)</h3>
+                <p>$15.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('escorihuelaGasconMalbec', -1)">-</button>
+                <span id="cant-escorihuelaGasconMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('escorihuelaGasconMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Altos del Plata (Cabernet, Malbec)</h3>
+                <p>$16.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('altosDelPlataCabernetMalbec', -1)">-</button>
+                <span id="cant-altosDelPlataCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('altosDelPlataCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Pentagrama Reserva Especial (Cabernet Franc)</h3>
+                <p>$17.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('pentagramaReservaEspecialCaber', -1)">-</button>
+                <span id="cant-pentagramaReservaEspecialCaber" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('pentagramaReservaEspecialCaber', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Finca La Linda (Cabernet, Malbec)</h3>
+                <p>$17.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('fincaLaLindaCabernetMalbec', -1)">-</button>
+                <span id="cant-fincaLaLindaCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('fincaLaLindaCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Nicasia (Red Blend)</h3>
+                <p>$17.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('nicasiaRedBlend', -1)">-</button>
+                <span id="cant-nicasiaRedBlend" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('nicasiaRedBlend', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Rutini (Cabernet-Malbec)</h3>
+                <p>$24.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('rutiniCabernetMalbec', -1)">-</button>
+                <span id="cant-rutiniCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('rutiniCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Luigi Bosca (Cabernet, Malbec)</h3>
+                <p>$25.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('luigiBoscaCabernetMalbec', -1)">-</button>
+                <span id="cant-luigiBoscaCabernetMalbec" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('luigiBoscaCabernetMalbec', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">VINOS BLANCOS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Cafayate (Chardonnay, Torrontés, Dulce tardío)</h3>
+                <p>$7.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('cafayateChardonnayTorrontesDul', -1)">-</button>
+                <span id="cant-cafayateChardonnayTorrontesDul" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('cafayateChardonnayTorrontesDul', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Callia (Rosé Amable tardío)</h3>
+                <p>$8.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('calliaRoseAmableTardio', -1)">-</button>
+                <span id="cant-calliaRoseAmableTardio" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('calliaRoseAmableTardio', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Chardonnay, Sauvignon Blanc) (3/4)</h3>
+                <p>$8.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaChardonnaySauvignonB', -1)">-</button>
+                <span id="cant-santaJuliaChardonnaySauvignonB" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaChardonnaySauvignonB', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Chardonnay, Sauvignon Blanc) (3/8)</h3>
+                <p>$7.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaChardonnaySauvignonB2', -1)">-</button>
+                <span id="cant-santaJuliaChardonnaySauvignonB2" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaChardonnaySauvignonB2', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Portillo (Sauvignon Blanc)</h3>
+                <p>$10.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('portilloSauvignonBlanc', -1)">-</button>
+                <span id="cant-portilloSauvignonBlanc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('portilloSauvignonBlanc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Tardío)</h3>
+                <p>$10.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaTardio', -1)">-</button>
+                <span id="cant-santaJuliaTardio" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaTardio', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Latitud 33 (Chardonnay, Sauvignon Blanc)</h3>
+                <p>$12.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('latitud33ChardonnaySauvignonBl', -1)">-</button>
+                <span id="cant-latitud33ChardonnaySauvignonBl" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('latitud33ChardonnaySauvignonBl', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Emilia (Chardonnay)</h3>
+                <p>$12.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('emiliaChardonnay', -1)">-</button>
+                <span id="cant-emiliaChardonnay" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('emiliaChardonnay', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Chenin Dulce) (3/4)</h3>
+                <p>$12.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCheninDulce34', -1)">-</button>
+                <span id="cant-santaJuliaCheninDulce34" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCheninDulce34', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Santa Julia (Chenin Dulce) (3/8)</h3>
+                <p>$6.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCheninDulce38', -1)">-</button>
+                <span id="cant-santaJuliaCheninDulce38" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('santaJuliaCheninDulce38', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Trumpeter (Chardonnay, Sauvignon Blanc) (3/4)</h3>
+                <p>$14.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterChardonnaySauvignonBl', -1)">-</button>
+                <span id="cant-trumpeterChardonnaySauvignonBl" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterChardonnaySauvignonBl', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Trumpeter (Chardonnay, Sauvignon Blanc) (3/8)</h3>
+                <p>$9.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterChardonnaySauvignonBl2', -1)">-</button>
+                <span id="cant-trumpeterChardonnaySauvignonBl2" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('trumpeterChardonnaySauvignonBl2', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Altos del Plata (Chardonnay)</h3>
+                <p>$16.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('altosDelPlataChardonnay', -1)">-</button>
+                <span id="cant-altosDelPlataChardonnay" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('altosDelPlataChardonnay', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Finca La Linda (Chardonnay) (3/4)</h3>
+                <p>$17.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('fincaLaLindaChardonnay34', -1)">-</button>
+                <span id="cant-fincaLaLindaChardonnay34" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('fincaLaLindaChardonnay34', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Finca La Linda (Chardonnay) (3/8)</h3>
+                <p>$11.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('fincaLaLindaChardonnay38', -1)">-</button>
+                <span id="cant-fincaLaLindaChardonnay38" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('fincaLaLindaChardonnay38', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Rutini (Gewurz Traminer, Riesling)</h3>
+                <p>$36.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('rutiniGewurzTraminerRiesling', -1)">-</button>
+                <span id="cant-rutiniGewurzTraminerRiesling" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('rutiniGewurzTraminerRiesling', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">ESPUMANTES</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Callia (Dulce Natural)</h3>
+                <p>$10.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('calliaDulceNatural', -1)">-</button>
+                <span id="cant-calliaDulceNatural" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('calliaDulceNatural', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Mumm (Léger)</h3>
+                <p>$13.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('mummLeger', -1)">-</button>
+                <span id="cant-mummLeger" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('mummLeger', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Pentagrama (Brut Nature)</h3>
+                <p>$14.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('pentagramaBrutNature', -1)">-</button>
+                <span id="cant-pentagramaBrutNature" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('pentagramaBrutNature', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Latitud 33 (Dulce, Extra Brut)</h3>
+                <p>$15.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('latitud33DulceExtraBrut', -1)">-</button>
+                <span id="cant-latitud33DulceExtraBrut" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('latitud33DulceExtraBrut', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Las Perdices (Extra Brut, Dulce Natural)</h3>
+                <p>$19.200</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('lasPerdicesExtraBrutDulceNatur', -1)">-</button>
+                <span id="cant-lasPerdicesExtraBrutDulceNatur" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('lasPerdicesExtraBrutDulceNatur', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">CERVEZAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Heineken (litro)</h3>
+                <p>$9.000</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('heinekenLitro', -1)">-</button>
+                <span id="cant-heinekenLitro" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('heinekenLitro', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Heineken (473 cc)</h3>
+                <p>$5.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('heineken473Cc', -1)">-</button>
+                <span id="cant-heineken473Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('heineken473Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Imperial Lager (litro)</h3>
+                <p>$6.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('imperialLagerLitro', -1)">-</button>
+                <span id="cant-imperialLagerLitro" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('imperialLagerLitro', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Imperial Lager (473 cc)</h3>
+                <p>$3.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('imperialLager473Cc', -1)">-</button>
+                <span id="cant-imperialLager473Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('imperialLager473Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Imperial Stout, Amber, IPA (473 cc)</h3>
+                <p>$4.300</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('imperialStoutAmberIpa473Cc', -1)">-</button>
+                <span id="cant-imperialStoutAmberIpa473Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('imperialStoutAmberIpa473Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Corona (330 cc)</h3>
+                <p>$5.800</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('corona330Cc', -1)">-</button>
+                <span id="cant-corona330Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('corona330Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">BEBIDAS</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Agua saborizada (500 cc)</h3>
+                <p>$3.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('aguaSaborizada500Cc', -1)">-</button>
+                <span id="cant-aguaSaborizada500Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('aguaSaborizada500Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Agua de mesa con o sin gas (500 cc)</h3>
+                <p>$3.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('aguaDeMesaConOSinGas500Cc', -1)">-</button>
+                <span id="cant-aguaDeMesaConOSinGas500Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('aguaDeMesaConOSinGas500Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Gaseosa (350 cc)</h3>
+                <p>$3.600</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('gaseosa350Cc', -1)">-</button>
+                <span id="cant-gaseosa350Cc" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('gaseosa350Cc', 1)">+</button>
+            </div>
+        </div>
+        <div class="categoria-titulo">MENÚ INFANTIL</div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Suprema de pollo c/guarnición</h3>
+                <p>$9.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaDePolloCGuarnicion', -1)">-</button>
+                <span id="cant-supremaDePolloCGuarnicion" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('supremaDePolloCGuarnicion', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Milanesa de ternera c/guarnición</h3>
+                <p>$9.700</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaDeTerneraCGuarnicion', -1)">-</button>
+                <span id="cant-milanesaDeTerneraCGuarnicion" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('milanesaDeTerneraCGuarnicion', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Merluza a la romana c/guarnición</h3>
+                <p>$9.500</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('merluzaALaRomanaCGuarnicion2', -1)">-</button>
+                <span id="cant-merluzaALaRomanaCGuarnicion2" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('merluzaALaRomanaCGuarnicion2', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Ñoquis de papa con tuco o crema</h3>
+                <p>$7.900</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('noquisDePapaConTucoOCrema', -1)">-</button>
+                <span id="cant-noquisDePapaConTucoOCrema" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('noquisDePapaConTucoOCrema', 1)">+</button>
+            </div>
+        </div>
+        <div class="producto-card">
+            <div class="producto-info">
+                <h3>Tallarines con tuco o crema</h3>
+                <p>$7.400</p>
+            </div>
+            <div class="control-cantidad">
+                <button class="btn-cantidad" onclick="cambiarCantidad('tallarinesConTucoOCrema', -1)">-</button>
+                <span id="cant-tallarinesConTucoOCrema" class="numero-cantidad">0</span>
+                <button class="btn-cantidad" onclick="cambiarCantidad('tallarinesConTucoOCrema', 1)">+</button>
             </div>
         </div>
 
@@ -511,19 +1992,159 @@
 
     <script>
         const pedido = {
-            milaTernera: { nombre: "Milanesa ternera + guarnicion", cantidad: 0, precio: 15000 },
-            milaNapo: { nombre: "Milanesa Napo + guarnicion", cantidad: 0, precio: 16500 },
-            merluza: { nombre: "Merluza a la romana + guarnicion", cantidad: 0, precio: 12000 },
-            ojoBife: { nombre: "Ojo de bife", cantidad: 0, precio: 15000 },
-            cazuela: { nombre: "Cazuela", cantidad: 0, precio: 16000 },
-            mariscada: { nombre: "Mariscada", cantidad: 0, precio: 16000 },
-            coca: { nombre: "Coca 500ml", cantidad: 0, precio: 4000 },
-            sprite: { nombre: "Sprite 500ml", cantidad: 0, precio: 4000 },
-            fanta: { nombre: "Fanta 500ml", cantidad: 0, precio: 4000 },
-            flan: { nombre: "Flan Solo", cantidad: 0, precio: 3000 },
-            addDulce: { nombre: "Adicional: Dulce de leche", cantidad: 0, precio: 1000 },
-            addCrema: { nombre: "Adicional: Crema", cantidad: 0, precio: 1000 },
-            addAmbos: { nombre: "Adicional: Dulce y crema", cantidad: 0, precio: 1700 }
+            rabasALaMarinera: { nombre: "Rabas a la marinera", cantidad: 0, precio: 16000 },
+            crocanteDeLangostinosConDipSal: { nombre: "Crocante de Langostinos con dip (salsa tabasco y de canela con limón)", cantidad: 0, precio: 17200 },
+            provoletaEspeciada: { nombre: "Provoleta especiada", cantidad: 0, precio: 11800 },
+            provoletaRellenaPancetaTomateY: { nombre: "Provoleta rellena (panceta, tomate y albahaca)", cantidad: 0, precio: 13000 },
+            bastoncitosDeQuesoRebozados: { nombre: "Bastoncitos de queso rebozados", cantidad: 0, precio: 11000 },
+            empanadasCriollasJamonYQuesoQu: { nombre: "Empanadas (criollas, jamón y queso, queso y cebolla, pescado, choclo)", cantidad: 0, precio: 3500 },
+            mixtaLechugaTomateYCebolla: { nombre: "Mixta (lechuga, tomate y cebolla)", cantidad: 0, precio: 4200 },
+            tricolorZanahoriaRemolachaYHue: { nombre: "Tricolor (zanahoria, remolacha y huevo)", cantidad: 0, precio: 4200 },
+            duoZanahoriaORuculaConHuevo: { nombre: "Duo (zanahoria o rúcula con huevo)", cantidad: 0, precio: 4200 },
+            ruculaConLluviaDeParmesano: { nombre: "Rúcula con lluvia de parmesano", cantidad: 0, precio: 4200 },
+            arcoirisLechugaZanahoriaRemola: { nombre: "Arcoiris (lechuga, zanahoria, remolacha, tomate, papa y choclo)", cantidad: 0, precio: 8200 },
+            marTierraHojasVerdesCroutonsCh: { nombre: "Mar & Tierra (hojas verdes, croutons, cherries, crocante de panceta, cebolla, queso en cubos y ave)", cantidad: 0, precio: 12600 },
+            cesar: { nombre: "César", cantidad: 0, precio: 12600 },
+            supremaALaToscanaConPapasMozar: { nombre: "Suprema a la toscana con papas (mozarella gratinada y champiñones a la provenzal)", cantidad: 0, precio: 16800 },
+            supremaMarTierraConPapasSalsaD: { nombre: "Suprema Mar & Tierra con papas (salsa de quesos, zanahoria y arveja)", cantidad: 0, precio: 15700 },
+            supremaMarylandCPapas: { nombre: "Suprema Maryland c/papas", cantidad: 0, precio: 15700 },
+            supremaDePollo: { nombre: "Suprema de pollo", cantidad: 0, precio: 8800 },
+            supremaDePolloALaNapolitana: { nombre: "Suprema de pollo a la napolitana", cantidad: 0, precio: 10300 },
+            cuartoDeAveDeshuesado: { nombre: "Cuarto de ave deshuesado", cantidad: 0, precio: 8800 },
+            carreDeCerdoALaRiojanaJamonCoc: { nombre: "Carré de cerdo a la Riojana (jamón cocido, huevo frito, morrones, papas y arvejas)", cantidad: 0, precio: 15800 },
+            carreDeCerdoALaMostazaConPapas: { nombre: "Carré de cerdo a la mostaza con papas", cantidad: 0, precio: 15800 },
+            carreDeCerdoALaMielConPureRust: { nombre: "Carré de cerdo a la miel con puré rústico", cantidad: 0, precio: 15800 },
+            bondiolaDeCerdoEnQuesoAzulConC: { nombre: "Bondiola de cerdo en queso azul con chop suey", cantidad: 0, precio: 15800 },
+            carreOBondiolaDeCerdoGrille: { nombre: "Carré o bondiola de cerdo grillé", cantidad: 0, precio: 9600 },
+            salsasMostazaQuesoAzulOVerdeo: { nombre: "Salsas (mostaza, queso azul o verdeo)", cantidad: 0, precio: 3900 },
+            ojoDeBifeBridadoConJamonSerran: { nombre: "Ojo de bife bridado con jamón serrano a la pimienta con papas a la crema", cantidad: 0, precio: 19400 },
+            entrecotteMontanesConPapasMorr: { nombre: "Entrecotte montañés con papas (morrones, mozzarella y jamón serrano con salsa demiglace)", cantidad: 0, precio: 18000 },
+            escalopeRellenoAlOportoYJerezC: { nombre: "Escalope relleno al oporto y jerez con ensalada de verano", cantidad: 0, precio: 20300 },
+            milanesaDeTernera: { nombre: "Milanesa de ternera", cantidad: 0, precio: 8800 },
+            milanesaDeTerneraALaNapolitana: { nombre: "Milanesa de ternera a la napolitana", cantidad: 0, precio: 10600 },
+            milanesaALaToscanaConGuarnicio: { nombre: "Milanesa a la toscana con guarnición", cantidad: 0, precio: 17400 },
+            costeleta: { nombre: "Costeleta", cantidad: 0, precio: 9000 },
+            entrecotte: { nombre: "Entrecotte", cantidad: 0, precio: 13500 },
+            bifeDeChorizoConGuarnicion: { nombre: "Bife de chorizo con guarnición", cantidad: 0, precio: 23000 },
+            salsasMostazaQuesoAzulOVerdeo2: { nombre: "Salsas (mostaza, queso azul o verdeo)", cantidad: 0, precio: 3900 },
+            paella: { nombre: "Paella", cantidad: 0, precio: 19000 },
+            mariscada: { nombre: "Mariscada", cantidad: 0, precio: 18200 },
+            langostinosAlAjilloCPapasLocas: { nombre: "Langostinos al ajillo c/papas locas", cantidad: 0, precio: 20700 },
+            cazuelaDeMariscos: { nombre: "Cazuela de mariscos", cantidad: 0, precio: 18200 },
+            mejillonesALaCremaCPapasLocas: { nombre: "Mejillones a la crema c/papas locas", cantidad: 0, precio: 16800 },
+            abadejoAlVerdeoConPapasRejilla: { nombre: "Abadejo al verdeo con papas rejilla", cantidad: 0, precio: 19500 },
+            abadejoEnPerfumeDeOlivasYAjoSo: { nombre: "Abadejo en perfume de olivas y ajo sobre bouquet verde y zapallo grillado", cantidad: 0, precio: 19500 },
+            truchaDelSurAlLimonYPimientaNe: { nombre: "Trucha del sur al limón y pimienta negra", cantidad: 0, precio: 21000 },
+            truchaRellenaConPapasGratinada: { nombre: "Trucha rellena con papas gratinadas", cantidad: 0, precio: 22300 },
+            pacuConSalsaCriollaYPureRustic: { nombre: "Pacú con salsa criolla y puré rústico", cantidad: 0, precio: 20000 },
+            bogaCapresseConPureMoscado: { nombre: "Boga capresse con puré moscado", cantidad: 0, precio: 23600 },
+            doradoCSalsaCriollaYGuarnicion: { nombre: "Dorado c/salsa criolla y guarnición", cantidad: 0, precio: 23000 },
+            salmonRosadoGrilladoCGuarnicio: { nombre: "Salmón rosado grillado c/guarnición", cantidad: 0, precio: 24400 },
+            merluzaALaRomanaCGuarnicion: { nombre: "Merluza a la romana c/guarnición", cantidad: 0, precio: 12600 },
+            merluzaAlVerdeoConPapas: { nombre: "Merluza al verdeo con papas", cantidad: 0, precio: 14800 },
+            tagliatellesDeEspinacaAlFrutti: { nombre: "Tagliatelles de espinaca al frutti di mare", cantidad: 0, precio: 15500 },
+            lasagnaDeMar: { nombre: "Lasagna de mar", cantidad: 0, precio: 11500 },
+            sorrentinosDeSalmon: { nombre: "Sorrentinos de Salmon", cantidad: 0, precio: 10400 },
+            sorrentinosDeCalabazaYMuzzarel: { nombre: "Sorrentinos de calabaza y muzzarella", cantidad: 0, precio: 8300 },
+            sorrentinosDeRicotaJamonYNuez: { nombre: "Sorrentinos de ricota, jamón y nuez", cantidad: 0, precio: 8300 },
+            sorrentinosDeJamonYQueso: { nombre: "Sorrentinos de jamón y queso", cantidad: 0, precio: 8300 },
+            noquisDePapa: { nombre: "Ñoquis de papa", cantidad: 0, precio: 7200 },
+            tallarinesAlHuevo: { nombre: "Tallarines al huevo", cantidad: 0, precio: 6400 },
+            raviolesDeVerduraYCarne: { nombre: "Ravioles de verdura y carne", cantidad: 0, precio: 7800 },
+            canelonesDeVerduraYCarne: { nombre: "Canelones de verdura y carne", cantidad: 0, precio: 8700 },
+            lasagnaDeVerduraYCarne: { nombre: "Lasagna de verdura y carne", cantidad: 0, precio: 9800 },
+            tuco: { nombre: "Tuco", cantidad: 0, precio: 3200 },
+            fileto: { nombre: "Fileto", cantidad: 0, precio: 3200 },
+            bolognesa: { nombre: "Bolognesa", cantidad: 0, precio: 3600 },
+            mixtaOCrema: { nombre: "Mixta o crema", cantidad: 0, precio: 3600 },
+            roquefortOVerdeo: { nombre: "Roquefort o verdeo", cantidad: 0, precio: 3900 },
+            holandesa: { nombre: "Holandesa", cantidad: 0, precio: 4600 },
+            champignon: { nombre: "Champignon", cantidad: 0, precio: 4600 },
+            cremaDeCamarones: { nombre: "Crema de camarones", cantidad: 0, precio: 6800 },
+            frutosDeMar: { nombre: "Frutos de mar", cantidad: 0, precio: 8100 },
+            adicionalDePeceto: { nombre: "Adicional de peceto", cantidad: 0, precio: 6000 },
+            papasFritasBaston: { nombre: "Papas fritas bastón", cantidad: 0, precio: 4200 },
+            papasFritasCarre: { nombre: "Papas fritas carre", cantidad: 0, precio: 4200 },
+            papasNaturales: { nombre: "Papas naturales", cantidad: 0, precio: 3600 },
+            pureDePapas: { nombre: "Puré de papas", cantidad: 0, precio: 4200 },
+            pureDeCalabacin: { nombre: "Puré de calabacín", cantidad: 0, precio: 4400 },
+            pureMixtoCalabacinYPapas: { nombre: "Puré mixto (calabacín y papas)", cantidad: 0, precio: 4200 },
+            papasALaCrema: { nombre: "Papas a la crema", cantidad: 0, precio: 4400 },
+            chopSuey: { nombre: "Chop Suey", cantidad: 0, precio: 4400 },
+            flanCasero: { nombre: "Flan casero", cantidad: 0, precio: 3300 },
+            budinDePanCasero: { nombre: "Budín de pan casero", cantidad: 0, precio: 3300 },
+            tiramisu: { nombre: "Tiramisú", cantidad: 0, precio: 5000 },
+            brownieConHeladoDeCrema: { nombre: "Brownie con helado de crema", cantidad: 0, precio: 5500 },
+            perasAlMerlotConHeladoDeCrema: { nombre: "Peras al Merlot con helado de crema", cantidad: 0, precio: 4800 },
+            panquequeDeDulceDeLecheConHela: { nombre: "Panqueque de dulce de leche con helado de crema", cantidad: 0, precio: 5000 },
+            heladoBochaIndividual: { nombre: "Helado (bocha individual)", cantidad: 0, precio: 2500 },
+            copaMarTierraHeladoDeChocolate: { nombre: "Copa Mar & Tierra (helado de chocolate, crema chantilly, dulce de leche, nueces, almendras tostadas y galletas dulces)", cantidad: 0, precio: 5700 },
+            copaAfricanaHeladoDeChocolateB: { nombre: "Copa Africana (helado de chocolate, brownie, crema moka y crocante de maní con chocolate)", cantidad: 0, precio: 5700 },
+            bombonEscoces: { nombre: "Bombón escocés", cantidad: 0, precio: 4200 },
+            higosEnAlmibarConCremaOQueso: { nombre: "Higos en almíbar con crema o queso", cantidad: 0, precio: 4800 },
+            lemonchamp: { nombre: "Lemonchamp", cantidad: 0, precio: 7400 },
+            donPedro: { nombre: "Don Pedro", cantidad: 0, precio: 7400 },
+            adicionalDeCremaODulce: { nombre: "Adicional de crema o dulce", cantidad: 0, precio: 1000 },
+            adicionalMixtoCremaYDulce: { nombre: "Adicional mixto (crema y dulce)", cantidad: 0, precio: 1700 },
+            cafayateCabernetMalbec: { nombre: "Cafayate (Cabernet, Malbec)", cantidad: 0, precio: 7800 },
+            otroLocoMasMalbec: { nombre: "Otro Loco Mas (Malbec)", cantidad: 0, precio: 8400 },
+            corderoConPielDeLoboMalbec: { nombre: "Cordero con Piel de Lobo (Malbec)", cantidad: 0, precio: 8800 },
+            santaJuliaCabernetMalbecSyrahT: { nombre: "Santa Julia (Cabernet, Malbec, Syrah, Tempranillo) (3/4)", cantidad: 0, precio: 8900 },
+            santaJuliaCabernetMalbecSyrahT2: { nombre: "Santa Julia (Cabernet, Malbec, Syrah, Tempranillo) (3/8)", cantidad: 0, precio: 7000 },
+            benjaminCabernetMalbec34: { nombre: "Benjamin (Cabernet, Malbec) (3/4)", cantidad: 0, precio: 9300 },
+            benjaminCabernetMalbec38: { nombre: "Benjamin (Cabernet, Malbec) (3/8)", cantidad: 0, precio: 7200 },
+            calliaEsperadoCabernetSyrahMal: { nombre: "Callia Esperado (Cabernet, Syrah-Malbec)", cantidad: 0, precio: 9800 },
+            portilloCabernetMalbecSyrah: { nombre: "Portillo (Cabernet, Malbec, Syrah)", cantidad: 0, precio: 10200 },
+            emiliaCabernetMalbec34: { nombre: "Emilia (Cabernet, Malbec) (3/4)", cantidad: 0, precio: 12300 },
+            emiliaCabernetMalbec38: { nombre: "Emilia (Cabernet, Malbec) (3/8)", cantidad: 0, precio: 9000 },
+            latitud33CabernetMalbecSyrah: { nombre: "Latitud 33 (Cabernet, Malbec, Syrah)", cantidad: 0, precio: 12300 },
+            gasconRobleCabernetMalbec: { nombre: "Gascon Roble (Cabernet, Malbec)", cantidad: 0, precio: 12300 },
+            santaJuliaReservaCabernetMalbe: { nombre: "Santa Julia Reserva (Cabernet, Malbec)", cantidad: 0, precio: 12700 },
+            cafayateReservaCabernetMalbec: { nombre: "Cafayate Reserva (Cabernet, Malbec)", cantidad: 0, precio: 12800 },
+            trumpeterCabernetMalbec34: { nombre: "Trumpeter (Cabernet, Malbec) (3/4)", cantidad: 0, precio: 14700 },
+            trumpeterCabernetMalbec38: { nombre: "Trumpeter (Cabernet, Malbec) (3/8)", cantidad: 0, precio: 9800 },
+            escorihuelaGasconMalbec: { nombre: "Escorihuela Gascon (Malbec)", cantidad: 0, precio: 15500 },
+            altosDelPlataCabernetMalbec: { nombre: "Altos del Plata (Cabernet, Malbec)", cantidad: 0, precio: 16900 },
+            pentagramaReservaEspecialCaber: { nombre: "Pentagrama Reserva Especial (Cabernet Franc)", cantidad: 0, precio: 17200 },
+            fincaLaLindaCabernetMalbec: { nombre: "Finca La Linda (Cabernet, Malbec)", cantidad: 0, precio: 17200 },
+            nicasiaRedBlend: { nombre: "Nicasia (Red Blend)", cantidad: 0, precio: 17400 },
+            rutiniCabernetMalbec: { nombre: "Rutini (Cabernet-Malbec)", cantidad: 0, precio: 24700 },
+            luigiBoscaCabernetMalbec: { nombre: "Luigi Bosca (Cabernet, Malbec)", cantidad: 0, precio: 25500 },
+            cafayateChardonnayTorrontesDul: { nombre: "Cafayate (Chardonnay, Torrontés, Dulce tardío)", cantidad: 0, precio: 7800 },
+            calliaRoseAmableTardio: { nombre: "Callia (Rosé Amable tardío)", cantidad: 0, precio: 8800 },
+            santaJuliaChardonnaySauvignonB: { nombre: "Santa Julia (Chardonnay, Sauvignon Blanc) (3/4)", cantidad: 0, precio: 8900 },
+            santaJuliaChardonnaySauvignonB2: { nombre: "Santa Julia (Chardonnay, Sauvignon Blanc) (3/8)", cantidad: 0, precio: 7000 },
+            portilloSauvignonBlanc: { nombre: "Portillo (Sauvignon Blanc)", cantidad: 0, precio: 10200 },
+            santaJuliaTardio: { nombre: "Santa Julia (Tardío)", cantidad: 0, precio: 10800 },
+            latitud33ChardonnaySauvignonBl: { nombre: "Latitud 33 (Chardonnay, Sauvignon Blanc)", cantidad: 0, precio: 12300 },
+            emiliaChardonnay: { nombre: "Emilia (Chardonnay)", cantidad: 0, precio: 12300 },
+            santaJuliaCheninDulce34: { nombre: "Santa Julia (Chenin Dulce) (3/4)", cantidad: 0, precio: 12400 },
+            santaJuliaCheninDulce38: { nombre: "Santa Julia (Chenin Dulce) (3/8)", cantidad: 0, precio: 6800 },
+            trumpeterChardonnaySauvignonBl: { nombre: "Trumpeter (Chardonnay, Sauvignon Blanc) (3/4)", cantidad: 0, precio: 14700 },
+            trumpeterChardonnaySauvignonBl2: { nombre: "Trumpeter (Chardonnay, Sauvignon Blanc) (3/8)", cantidad: 0, precio: 9800 },
+            altosDelPlataChardonnay: { nombre: "Altos del Plata (Chardonnay)", cantidad: 0, precio: 16900 },
+            fincaLaLindaChardonnay34: { nombre: "Finca La Linda (Chardonnay) (3/4)", cantidad: 0, precio: 17200 },
+            fincaLaLindaChardonnay38: { nombre: "Finca La Linda (Chardonnay) (3/8)", cantidad: 0, precio: 11300 },
+            rutiniGewurzTraminerRiesling: { nombre: "Rutini (Gewurz Traminer, Riesling)", cantidad: 0, precio: 36500 },
+            calliaDulceNatural: { nombre: "Callia (Dulce Natural)", cantidad: 0, precio: 10300 },
+            mummLeger: { nombre: "Mumm (Léger)", cantidad: 0, precio: 13300 },
+            pentagramaBrutNature: { nombre: "Pentagrama (Brut Nature)", cantidad: 0, precio: 14200 },
+            latitud33DulceExtraBrut: { nombre: "Latitud 33 (Dulce, Extra Brut)", cantidad: 0, precio: 15000 },
+            lasPerdicesExtraBrutDulceNatur: { nombre: "Las Perdices (Extra Brut, Dulce Natural)", cantidad: 0, precio: 19200 },
+            heinekenLitro: { nombre: "Heineken (litro)", cantidad: 0, precio: 9000 },
+            heineken473Cc: { nombre: "Heineken (473 cc)", cantidad: 0, precio: 5600 },
+            imperialLagerLitro: { nombre: "Imperial Lager (litro)", cantidad: 0, precio: 6800 },
+            imperialLager473Cc: { nombre: "Imperial Lager (473 cc)", cantidad: 0, precio: 3800 },
+            imperialStoutAmberIpa473Cc: { nombre: "Imperial Stout, Amber, IPA (473 cc)", cantidad: 0, precio: 4300 },
+            corona330Cc: { nombre: "Corona (330 cc)", cantidad: 0, precio: 5800 },
+            aguaSaborizada500Cc: { nombre: "Agua saborizada (500 cc)", cantidad: 0, precio: 3600 },
+            aguaDeMesaConOSinGas500Cc: { nombre: "Agua de mesa con o sin gas (500 cc)", cantidad: 0, precio: 3600 },
+            gaseosa350Cc: { nombre: "Gaseosa (350 cc)", cantidad: 0, precio: 3600 },
+            supremaDePolloCGuarnicion: { nombre: "Suprema de pollo c/guarnición", cantidad: 0, precio: 9700 },
+            milanesaDeTerneraCGuarnicion: { nombre: "Milanesa de ternera c/guarnición", cantidad: 0, precio: 9700 },
+            merluzaALaRomanaCGuarnicion2: { nombre: "Merluza a la romana c/guarnición", cantidad: 0, precio: 9500 },
+            noquisDePapaConTucoOCrema: { nombre: "Ñoquis de papa con tuco o crema", cantidad: 0, precio: 7900 },
+            tallarinesConTucoOCrema: { nombre: "Tallarines con tuco o crema", cantidad: 0, precio: 7400 }
         };
 
         function cambiarCantidad(id, cambio) {
