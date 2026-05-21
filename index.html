@@ -129,16 +129,72 @@
             font-weight: 600;
         }
 
-        .producto-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgba(34, 34, 34, 0.85); 
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #2d2d2d;
-            border-left: 4px solid #E28F83;
+        const catalogo = [
+    // ENTRADAS
+    { id: 'rabas', cat: 'ENTRADAS', nombre: 'Rabas a la marinera', precio: 16000 },
+    { id: 'langostinos', cat: 'ENTRADAS', nombre: 'Crocante de Langostinos', precio: 17200 },
+    { id: 'provoleta', cat: 'ENTRADAS', nombre: 'Provoleta especiada', precio: 11800 },
+    { id: 'provoleta_rellena', cat: 'ENTRADAS', nombre: 'Provoleta rellena', precio: 13000 },
+    { id: 'bastoncitos', cat: 'ENTRADAS', nombre: 'Bastoncitos de queso', precio: 11000 },
+    { id: 'empanadas', cat: 'ENTRADAS', nombre: 'Empanadas (unidad)', precio: 3500 },
+
+    // ENSALADAS
+    { id: 'ens_mixta', cat: 'ENSALADAS', nombre: 'Ensalada Mixta', precio: 4200 },
+    { id: 'ens_tricolor', cat: 'ENSALADAS', nombre: 'Ensalada Tricolor', precio: 4200 },
+    { id: 'ens_duo', cat: 'ENSALADAS', nombre: 'Ensalada Duo', precio: 4200 },
+    { id: 'ens_rucula', cat: 'ENSALADAS', nombre: 'Rúcula con parmesano', precio: 4200 },
+    { id: 'ens_arcoiris', cat: 'ENSALADAS', nombre: 'Ensalada Arcoiris', precio: 8200 },
+    { id: 'ens_mar_tierra', cat: 'ENSALADAS', nombre: 'Ensalada Mar & Tierra', precio: 12600 },
+    { id: 'ens_cesar', cat: 'ENSALADAS', nombre: 'Ensalada César', precio: 12600 },
+
+    // CARNES BLANCAS
+    { id: 'sup_toscana', cat: 'CARNES BLANCAS', nombre: 'Suprema a la toscana c/papas', precio: 16800 },
+    { id: 'sup_mar_tierra', cat: 'CARNES BLANCAS', nombre: 'Suprema Mar & Tierra c/papas', precio: 15700 },
+    { id: 'sup_maryland', cat: 'CARNES BLANCAS', nombre: 'Suprema Maryland c/papas', precio: 15700 },
+    { id: 'sup_pollo', cat: 'CARNES BLANCAS', nombre: 'Suprema de pollo', precio: 8800 },
+    { id: 'sup_napo', cat: 'CARNES BLANCAS', nombre: 'Suprema de pollo napolitana', precio: 10300 },
+    { id: 'cuarto_ave', cat: 'CARNES BLANCAS', nombre: 'Cuarto de ave deshuesado', precio: 8800 },
+    { id: 'cerdo_riojana', cat: 'CARNES BLANCAS', nombre: 'Carré de cerdo a la Riojana', precio: 15800 },
+    { id: 'cerdo_mostaza', cat: 'CARNES BLANCAS', nombre: 'Carré de cerdo a la mostaza', precio: 15800 },
+    { id: 'cerdo_miel', cat: 'CARNES BLANCAS', nombre: 'Carré de cerdo a la miel', precio: 15800 },
+    { id: 'bondiola_azul', cat: 'CARNES BLANCAS', nombre: 'Bondiola en queso azul', precio: 15800 },
+    { id: 'cerdo_grille', cat: 'CARNES BLANCAS', nombre: 'Carré o bondiola grillé', precio: 9600 },
+    { id: 'salsa_blancas', cat: 'CARNES BLANCAS', nombre: 'Salsas (adicional)', precio: 3900 },
+
+    // CARNES ROJAS
+    { id: 'ojo_bife', cat: 'CARNES ROJAS', nombre: 'Ojo de bife bridado', precio: 19400 },
+    { id: 'entrecotte_mont', cat: 'CARNES ROJAS', nombre: 'Entrecotte montañés', precio: 18000 },
+    { id: 'escalope', cat: 'CARNES ROJAS', nombre: 'Escalope relleno al oporto', precio: 20300 },
+    { id: 'mila_ternera', cat: 'CARNES ROJAS', nombre: 'Milanesa de ternera', precio: 8800 },
+    { id: 'mila_napo_ternera', cat: 'CARNES ROJAS', nombre: 'Milanesa de ternera napo', precio: 10600 },
+    { id: 'mila_toscana', cat: 'CARNES ROJAS', nombre: 'Milanesa a la toscana', precio: 17400 },
+    { id: 'costeleta', cat: 'CARNES ROJAS', nombre: 'Costeleta', precio: 9000 },
+    { id: 'entrecotte', cat: 'CARNES ROJAS', nombre: 'Entrecotte', precio: 13500 },
+    { id: 'bife_chorizo', cat: 'CARNES ROJAS', nombre: 'Bife de chorizo', precio: 23000 },
+
+    // PASTAS
+    { id: 'tagliatelles', cat: 'PASTAS', nombre: 'Tagliatelles frutti di mare', precio: 15500 },
+    { id: 'lasagna_mar', cat: 'PASTAS', nombre: 'Lasagna de mar', precio: 11500 },
+    { id: 'sorrentinos_salmon', cat: 'PASTAS', nombre: 'Sorrentinos de Salmón', precio: 10400 },
+    { id: 'sorrentinos_calabaza', cat: 'PASTAS', nombre: 'Sorrentinos calabaza y muzz.', precio: 8300 },
+    { id: 'sorrentinos_ricota', cat: 'PASTAS', nombre: 'Sorrentinos ricota, jamón y nuez', precio: 8300 },
+    { id: 'sorrentinos_jyq', cat: 'PASTAS', nombre: 'Sorrentinos jamón y queso', precio: 8300 },
+    { id: 'noquis', cat: 'PASTAS', nombre: 'Ñoquis de papa', precio: 7200 },
+    { id: 'tallarines', cat: 'PASTAS', nombre: 'Tallarines al huevo', precio: 6400 },
+    { id: 'ravioles', cat: 'PASTAS', nombre: 'Ravioles de verdura y carne', precio: 7800 },
+    { id: 'canelones', cat: 'PASTAS', nombre: 'Canelones de verdura y carne', precio: 8700 },
+    { id: 'lasagna_verdura', cat: 'PASTAS', nombre: 'Lasagna de verdura y carne', precio: 9800 },
+
+    // POSTRES
+    { id: 'flan', cat: 'POSTRES', nombre: 'Flan casero', precio: 3300 },
+    { id: 'budin', cat: 'POSTRES', nombre: 'Budín de pan casero', precio: 3300 },
+    { id: 'tiramisu', cat: 'POSTRES', nombre: 'Tiramisú', precio: 5000 },
+    { id: 'brownie', cat: 'POSTRES', nombre: 'Brownie con helado', precio: 5500 },
+    { id: 'peras', cat: 'POSTRES', nombre: 'Peras al Merlot', precio: 4800 },
+    { id: 'panqueque', cat: 'POSTRES', nombre: 'Panqueque dulce de leche', precio: 5000 },
+    { id: 'copa_mt', cat: 'POSTRES', nombre: 'Copa Mar & Tierra', precio: 5700 },
+    { id: 'copa_africana', cat: 'POSTRES', nombre: 'Copa Africana', precio: 5700 }
+];
         }
 
         .producto-info h3 {
