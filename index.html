@@ -168,17 +168,33 @@
       <div id="field-delivery" class="hidden">
         <label class="block text-sm text-muted-foreground mb-1">Dirección de entrega</label>
         <input type="text" id="input-direccion" placeholder="Calle, número, piso..." class="w-full bg-input border border-border rounded-lg px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50">
+        <p class="text-xs text-muted-foreground mt-1 italic">(El costo del envío corre por cuenta de la cadetería)</p>
       </div>
       <div>
         <label class="block text-sm text-muted-foreground mb-1">Nombre (opcional)</label>
         <input type="text" id="input-nombre" placeholder="Tu nombre" class="w-full bg-input border border-border rounded-lg px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50">
+      </div>
+      <!-- Método de pago -->
+      <div>
+        <label class="block text-sm text-muted-foreground mb-2">Método de pago</label>
+        <div class="flex gap-2">
+          <button onclick="setPayment('efectivo')" id="pay-efectivo" class="payment-btn flex-1 py-2 px-3 rounded-lg text-xs font-medium transition-all bg-primary text-primary-foreground">
+            💵 Efectivo
+          </button>
+          <button onclick="setPayment('transferencia')" id="pay-transferencia" class="payment-btn flex-1 py-2 px-3 rounded-lg text-xs font-medium transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80">
+            🏦 Transferencia
+          </button>
+          <button onclick="setPayment('tarjeta')" id="pay-tarjeta" class="payment-btn flex-1 py-2 px-3 rounded-lg text-xs font-medium transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80">
+            💳 Tarjeta
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Category Navigation -->
   <nav id="category-nav" class="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border mt-4">
-    <div class="flex overflow-x-auto hide-scrollbar px-4 py-3 gap-2">
+    <div id="category-scroll" class="flex overflow-x-auto px-4 py-3 gap-2" style="-webkit-overflow-scrolling: touch; scroll-behavior: smooth;">
       <!-- Categories will be injected here -->
     </div>
   </nav>
@@ -476,38 +492,114 @@
     // State
     let cart = {};
     let orderType = 'mesa';
+    let paymentMethod = 'efectivo';
     let activeCategory = menuData[0].id;
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
+      loadSavedData();
       renderCategoryNav();
       renderMenu();
       setupScrollObserver();
+      setupCategoryDrag();
     });
+
+    // Guardar y cargar datos del cliente en localStorage
+    function saveData() {
+      const data = {
+        nombre: document.getElementById('input-nombre').value,
+        mesa: document.getElementById('input-mesa').value,
+        direccion: document.getElementById('input-direccion').value,
+        orderType,
+        paymentMethod,
+      };
+      try { localStorage.setItem('martierra_client', JSON.stringify(data)); } catch(e) {}
+    }
+
+    function loadSavedData() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('martierra_client') || 'null');
+        if (!saved) return;
+        if (saved.nombre) document.getElementById('input-nombre').value = saved.nombre;
+        if (saved.mesa) document.getElementById('input-mesa').value = saved.mesa;
+        if (saved.direccion) document.getElementById('input-direccion').value = saved.direccion;
+        if (saved.orderType) { orderType = saved.orderType; applyOrderType(); }
+        if (saved.paymentMethod) { paymentMethod = saved.paymentMethod; applyPaymentMethod(); }
+      } catch(e) {}
+      // Guardar al cambiar cualquier input
+      ['input-nombre','input-mesa','input-direccion'].forEach(id => {
+        document.getElementById(id).addEventListener('input', saveData);
+      });
+    }
 
     // Order Type
     function setOrderType(type) {
       orderType = type;
+      applyOrderType();
+      saveData();
+    }
+
+    function applyOrderType() {
       document.querySelectorAll('.order-type-btn').forEach(btn => {
         btn.classList.remove('bg-primary', 'text-primary-foreground');
         btn.classList.add('bg-secondary', 'text-secondary-foreground');
       });
-      document.getElementById(`btn-${type}`).classList.remove('bg-secondary', 'text-secondary-foreground');
-      document.getElementById(`btn-${type}`).classList.add('bg-primary', 'text-primary-foreground');
-      
+      const activeBtn = document.getElementById(`btn-${orderType}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-secondary', 'text-secondary-foreground');
+        activeBtn.classList.add('bg-primary', 'text-primary-foreground');
+      }
       document.getElementById('field-mesa').classList.add('hidden');
       document.getElementById('field-delivery').classList.add('hidden');
-      
-      if (type === 'mesa') {
+      if (orderType === 'mesa') {
         document.getElementById('field-mesa').classList.remove('hidden');
-      } else if (type === 'delivery') {
+      } else if (orderType === 'delivery') {
         document.getElementById('field-delivery').classList.remove('hidden');
       }
     }
 
+    // Payment Method
+    function setPayment(method) {
+      paymentMethod = method;
+      applyPaymentMethod();
+      saveData();
+    }
+
+    function applyPaymentMethod() {
+      document.querySelectorAll('.payment-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-primary-foreground');
+        btn.classList.add('bg-secondary', 'text-secondary-foreground');
+      });
+      const activeBtn = document.getElementById(`pay-${paymentMethod}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-secondary', 'text-secondary-foreground');
+        activeBtn.classList.add('bg-primary', 'text-primary-foreground');
+      }
+    }
+
+    // Drag-to-scroll para categorías en móvil
+    function setupCategoryDrag() {
+      const el = document.getElementById('category-scroll');
+      if (!el) return;
+      let isDown = false, startX, scrollLeft;
+      el.addEventListener('mousedown', e => {
+        isDown = true; el.style.cursor = 'grabbing';
+        startX = e.pageX - el.offsetLeft;
+        scrollLeft = el.scrollLeft;
+      });
+      el.addEventListener('mouseleave', () => { isDown = false; el.style.cursor = ''; });
+      el.addEventListener('mouseup', () => { isDown = false; el.style.cursor = ''; });
+      el.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - el.offsetLeft;
+        el.scrollLeft = scrollLeft - (x - startX);
+      });
+    }
+
     // Category Navigation
     function renderCategoryNav() {
-      const nav = document.querySelector('#category-nav > div');
+      const nav = document.getElementById('category-scroll');
       nav.innerHTML = menuData.map(cat => `
         <button 
           onclick="scrollToCategory('${cat.id}')"
@@ -688,6 +780,7 @@
       const mesa = document.getElementById('input-mesa').value.trim();
       const direccion = document.getElementById('input-direccion').value.trim();
 
+      const payLabels = { efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', tarjeta: '💳 Tarjeta' };
       let mensaje = '*Nuevo Pedido - Mar & Tierra*\n\n';
       
       if (nombre) mensaje += `*Nombre:* ${nombre}\n`;
@@ -713,6 +806,10 @@
       });
       
       mensaje += `\n*Total: ${formatPrice(total)}*`;
+      mensaje += `\n*Método de pago:* ${payLabels[paymentMethod] || paymentMethod}`;
+      if (orderType === 'delivery') {
+        mensaje += '\n_(El costo del envío corre por cuenta de la cadetería)_';
+      }
 
       const phoneNumber = '543584867134'; // Cambiar por el número real
       const encodedMessage = encodeURIComponent(mensaje);
