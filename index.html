@@ -114,6 +114,28 @@
       font-family: 'Poppins', sans-serif;
       text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
+
+    /* Modal de confirmación */
+    #modal-confirmacion {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    #modal-confirmacion.active { display: flex; }
+    .modal-box {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
   </style>
 </head>
 <body class="bg-background text-foreground min-h-screen">
@@ -195,13 +217,11 @@
   <!-- Category Navigation -->
   <nav id="category-nav" class="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border mt-4">
     <div id="category-scroll" class="flex overflow-x-auto px-4 py-3 gap-2" style="-webkit-overflow-scrolling: touch; scroll-behavior: smooth;">
-      <!-- Categories will be injected here -->
     </div>
   </nav>
 
   <!-- Menu Content -->
   <main id="menu-content" class="px-4 py-6 pb-32 max-w-6xl mx-auto">
-    <!-- Menu sections will be injected here -->
   </main>
 
   <!-- Cart Bar -->
@@ -219,11 +239,12 @@
           <p id="cart-total" class="text-lg font-bold text-foreground">$0</p>
         </div>
       </div>
-      <button id="whatsapp-btn" onclick="sendToWhatsApp()" disabled class="flex items-center gap-2 bg-muted text-muted-foreground px-5 py-3 rounded-xl font-semibold transition-all disabled:cursor-not-allowed">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      <!-- BOTÓN: ahora envía a Firebase en vez de WhatsApp -->
+      <button id="enviar-btn" onclick="enviarPedido()" disabled class="flex items-center gap-2 bg-muted text-muted-foreground px-5 py-3 rounded-xl font-semibold transition-all disabled:cursor-not-allowed">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
         </svg>
-        Enviar pedido
+        <span id="enviar-btn-text">Enviar pedido</span>
       </button>
     </div>
   </footer>
@@ -234,6 +255,45 @@
     <img id="lightbox-img" src="" alt="">
     <div id="lightbox-caption"></div>
   </div>
+
+  <!-- Modal confirmación -->
+  <div id="modal-confirmacion">
+    <div class="modal-box animate-fade-in">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h2 style="color:#E28F83; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;">¡Pedido enviado!</h2>
+      <p style="color:#a0a0a0; font-size:0.9rem; margin-bottom:1.5rem;">Tu pedido llegó al restaurante. En breve lo están preparando.</p>
+      <button onclick="cerrarModal()" style="background:#E28F83; color:#1a1a1a; border:none; padding:0.75rem 2rem; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; width:100%;">
+        Hacer otro pedido
+      </button>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAFoEGL092yCKzaHQe7BcjIMtsvxB1QJQQ",
+      authDomain: "martierra-delivery.firebaseapp.com",
+      projectId: "martierra-delivery",
+      storageBucket: "martierra-delivery.firebasestorage.app",
+      messagingSenderId: "820403586444",
+      appId: "1:820403586444:web:8948027ab1280b5f2802a9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Exponemos la función al scope global para que el botón la pueda llamar
+    window.enviarPedidoFirebase = async function(pedidoData) {
+      await addDoc(collection(db, 'pedidos'), {
+        ...pedidoData,
+        estado: 'nuevo',
+        createdAt: serverTimestamp()
+      });
+    };
+  </script>
 
   <script>
     // Lightbox
@@ -250,243 +310,184 @@
       document.body.style.overflow = "";
     }
     document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
     // Menu Data
     const menuData = [
-      {
-        id: "entradas",
-        nombre: "Entradas",
-        items: [
-          { id: "rabasALaMarinera", nombre: "Rabas a la marinera", precio: 16000, destacado: true },
-          { id: "crocanteDeLangostinos", nombre: "Crocante de Langostinos", descripcion: "Con dip de salsa tabasco y de canela con limón", precio: 17200 },
-          { id: "provoletaEspeciada", nombre: "Provoleta especiada", precio: 11800 },
-          { id: "provoletaRellena", nombre: "Provoleta rellena", descripcion: "Panceta, tomate y albahaca", precio: 13000 },
-          { id: "bastoncitosQueso", nombre: "Bastoncitos de queso rebozados", precio: 11000 },
-          { id: "empanadas", nombre: "Empanadas", descripcion: "Criollas, jamón y queso, queso y cebolla, pescado, choclo", precio: 3500 },
-        ]
-      },
-      {
-        id: "ensaladas",
-        nombre: "Ensaladas",
-        items: [
-          { id: "mixtaEnsalada", nombre: "Mixta", descripcion: "Lechuga, tomate y cebolla", precio: 4200 },
-          { id: "tricolor", nombre: "Tricolor", descripcion: "Zanahoria, remolacha y huevo", precio: 4200 },
-          { id: "duo", nombre: "Duo", descripcion: "Zanahoria o rúcula con huevo", precio: 4200 },
-          { id: "rucula", nombre: "Rúcula con lluvia de parmesano", precio: 4200 },
-          { id: "arcoiris", nombre: "Arcoiris", descripcion: "Lechuga, zanahoria, remolacha, tomate, papa y choclo", precio: 8200 },
-          { id: "marTierraEnsalada", nombre: "Mar & Tierra", descripcion: "Hojas verdes, croutons, cherries, crocante de panceta, cebolla, queso en cubos y ave", precio: 12600, destacado: true },
-          { id: "cesar", nombre: "César", precio: 12600 },
-        ]
-      },
-      {
-        id: "carnesBlancas",
-        nombre: "Carnes Blancas",
-        items: [
-          { id: "supremaToscana", nombre: "Suprema a la toscana", descripcion: "Con papas, mozzarella gratinada y champiñones a la provenzal", precio: 16800, destacado: true },
-          { id: "supremaMarTierra", nombre: "Suprema Mar & Tierra", descripcion: "Con papas, salsa de quesos, zanahoria y arveja", precio: 15700 },
-          { id: "supremaMaryland", nombre: "Suprema Maryland c/papas", precio: 15700 },
-          { id: "supremaPollo", nombre: "Suprema de pollo", precio: 8800 },
-          { id: "supremaNapolitana", nombre: "Suprema de pollo a la napolitana", precio: 10300 },
-          { id: "cuartoAve", nombre: "Cuarto de ave deshuesado", precio: 8800 },
-          { id: "carreRiojana", nombre: "Carré de cerdo a la Riojana", descripcion: "Jamón cocido, huevo frito, morrones, papas y arvejas", precio: 15800, imagen: "images/carre-riojana.jpg", destacado: true },
-          { id: "carreMostaza", nombre: "Carré de cerdo a la mostaza con papas", precio: 15800 },
-          { id: "carreMiel", nombre: "Carré de cerdo a la miel con puré rústico", precio: 15800 },
-          { id: "bondiolaQuesoAzul", nombre: "Bondiola de cerdo en queso azul", descripcion: "Con chop suey", precio: 15800 },
-          { id: "carreGrille", nombre: "Carré o bondiola de cerdo grillé", precio: 9600 },
-          { id: "salsasBlancas", nombre: "Salsas (mostaza, queso azul o verdeo)", precio: 3900 },
-        ]
-      },
-      {
-        id: "carnesRojas",
-        nombre: "Carnes Rojas",
-        items: [
-          { id: "ojoBife", nombre: "Ojo de bife bridado", descripcion: "Con jamón serrano a la pimienta con papas a la crema", precio: 19400 },
-          { id: "entrecotteMontanes", nombre: "Entrecotte montañés", descripcion: "Morrones, mozzarella y jamón serrano con salsa demiglace", precio: 18000, imagen: "images/entrecotte.jpg", destacado: true },
-          { id: "escalopeRelleno", nombre: "Escalope relleno al oporto y jerez", descripcion: "Con ensalada de verano", precio: 20300 },
-          { id: "milanesaTernera", nombre: "Milanesa de ternera", precio: 8800 },
-          { id: "milanesaNapolitana", nombre: "Milanesa de ternera a la napolitana", precio: 10600 },
-          { id: "milanesaToscana", nombre: "Milanesa a la toscana con guarnición", precio: 17400 },
-          { id: "costeleta", nombre: "Costeleta", precio: 9000 },
-          { id: "entrecotte", nombre: "Entrecotte", precio: 13500 },
-          { id: "bifeChorizo", nombre: "Bife de chorizo con guarnición", precio: 23000 },
-          { id: "salsasRojas", nombre: "Salsas (mostaza, queso azul o verdeo)", precio: 3900 },
-        ]
-      },
-      {
-        id: "pescadosMariscos",
-        nombre: "Pescados y Mariscos",
-        items: [
-          { id: "paella", nombre: "Paella", precio: 19000, imagen: "images/paella.jpg", destacado: true },
-          { id: "mariscada", nombre: "Mariscada", precio: 18200 },
-          { id: "langostinosAjillo", nombre: "Langostinos al ajillo c/papas locas", precio: 20700 },
-          { id: "cazuelaMariscos", nombre: "Cazuela de mariscos", precio: 18200, imagen: "images/cazuela-mariscos.jpg" },
-          { id: "mejillonesCrema", nombre: "Mejillones a la crema c/papas locas", precio: 16800 },
-          { id: "abadejoVerdeo", nombre: "Abadejo al verdeo con papas rejilla", precio: 19500 },
-          { id: "abadejoOlivas", nombre: "Abadejo en perfume de olivas y ajo", descripcion: "Sobre bouquet verde y zapallo grillado", precio: 19500 },
-          { id: "truchaLimon", nombre: "Trucha del sur al limón y pimienta negra", precio: 21000 },
-          { id: "truchaRellena", nombre: "Trucha rellena con papas gratinadas", precio: 22300 },
-          { id: "pacuCriolla", nombre: "Pacú con salsa criolla y puré rústico", precio: 20000, imagen: "images/pacu-criolla.jpg", destacado: true },
-          { id: "bogaCapresse", nombre: "Boga capresse con puré moscado", precio: 23600 },
-          { id: "doradoCriolla", nombre: "Dorado c/salsa criolla y guarnición", precio: 23000 },
-          { id: "salmonGrillado", nombre: "Salmón rosado grillado c/guarnición", precio: 24400, imagen: "images/salmon-grillado.jpg", destacado: true },
-          { id: "merluzaRomana", nombre: "Merluza a la romana c/guarnición", precio: 12600 },
-          { id: "merluzaVerdeo", nombre: "Merluza al verdeo con papas", precio: 14800 },
-        ]
-      },
-      {
-        id: "pastas",
-        nombre: "Nuestras Pastas",
-        items: [
-          { id: "tagliatellesFrutti", nombre: "Tagliatelles de espinaca al frutti di mare", precio: 15500, destacado: true },
-          { id: "lasagnaMar", nombre: "Lasagna de mar", precio: 11500 },
-          { id: "sorrentinosSalmon", nombre: "Sorrentinos de Salmón", precio: 10400 },
-          { id: "sorrentinosCalabaza", nombre: "Sorrentinos de calabaza y muzzarella", precio: 8300 },
-          { id: "sorrentinosRicota", nombre: "Sorrentinos de ricota, jamón y nuez", precio: 8300, imagen: "images/sorrentinos.jpg", destacado: true },
-          { id: "sorrentinosJamon", nombre: "Sorrentinos de jamón y queso", precio: 8300 },
-          { id: "noquis", nombre: "Ñoquis de papa", precio: 7200 },
-          { id: "tallarines", nombre: "Tallarines al huevo", precio: 6400 },
-          { id: "ravioles", nombre: "Ravioles de verdura y carne", precio: 7800 },
-          { id: "canelones", nombre: "Canelones de verdura y carne", precio: 8700 },
-          { id: "lasagnaVerdura", nombre: "Lasagna de verdura y carne", precio: 9800 },
-        ]
-      },
-      {
-        id: "salsas",
-        nombre: "Salsas",
-        items: [
-          { id: "tuco", nombre: "Tuco", precio: 3200 },
-          { id: "fileto", nombre: "Fileto", precio: 3200 },
-          { id: "bolognesa", nombre: "Bolognesa", precio: 3600 },
-          { id: "mixta", nombre: "Mixta o crema", precio: 3600 },
-          { id: "roquefort", nombre: "Roquefort o verdeo", precio: 3900 },
-          { id: "holandesa", nombre: "Holandesa", precio: 4600 },
-          { id: "champignon", nombre: "Champignon", precio: 4600 },
-          { id: "cremaCaramones", nombre: "Crema de camarones", precio: 6800 },
-          { id: "frutosMar", nombre: "Frutos de mar", precio: 8100 },
-          { id: "adicionalPeceto", nombre: "Adicional de peceto", precio: 6000 },
-        ]
-      },
-      {
-        id: "guarniciones",
-        nombre: "Guarniciones",
-        items: [
-          { id: "papasFritasBaston", nombre: "Papas fritas bastón", precio: 4200 },
-          { id: "papasFritasCarre", nombre: "Papas fritas carré", precio: 4200 },
-          { id: "papasNaturales", nombre: "Papas naturales", precio: 3600 },
-          { id: "purePapas", nombre: "Puré de papas", precio: 4200 },
-          { id: "pureCalabacin", nombre: "Puré de calabacín", precio: 4400 },
-          { id: "pureMixto", nombre: "Puré mixto (calabacín y papas)", precio: 4200 },
-          { id: "papasCrema", nombre: "Papas a la crema", precio: 4400 },
-          { id: "chopSuey", nombre: "Chop Suey", precio: 4400 },
-        ]
-      },
-      {
-        id: "postres",
-        nombre: "Postres",
-        items: [
-          { id: "tiramisu", nombre: "Tiramisú", precio: 5000, imagen: "images/tiramisu.jpg", destacado: true },
-          { id: "brownie", nombre: "Brownie con helado de crema", precio: 5500, imagen: "images/brownie.jpg", destacado: true },
-          { id: "perasMerlot", nombre: "Peras al Merlot con helado de crema", precio: 4800, imagen: "images/pera-chocolate.jpg" },
-          { id: "panqueque", nombre: "Panqueque de dulce de leche con helado", precio: 5000, imagen: "images/panqueques.jpg" },
-          { id: "copaMT", nombre: "Copa Mar & Tierra", descripcion: "Helado de chocolate, crema chantilly, dulce de leche, nueces, almendras tostadas y galletas dulces", precio: 5700, imagen: "images/helado-artesanal.jpg", destacado: true },
-          { id: "copaAfricana", nombre: "Copa Africana", descripcion: "Helado de chocolate, brownie, crema moka y crocante de maní con chocolate", precio: 5700, imagen: "images/copa-africana.jpg" },
-          { id: "flan", nombre: "Flan casero", precio: 3300, imagen: "images/flan.jpg" },
-          { id: "budinPan", nombre: "Budín de pan casero", precio: 3300, imagen: "images/budin-de-pan.jpg" },
-          { id: "helado", nombre: "Helado (bocha individual)", precio: 2500 },
-          { id: "bombon", nombre: "Bombón escocés", precio: 4200 },
-          { id: "higosAlmibar", nombre: "Higos en almíbar con crema o queso", precio: 4800, imagen: "images/higos.jpg" },
-          { id: "lemonchamp", nombre: "Lemonchamp", precio: 7400 },
-          { id: "donPedro", nombre: "Don Pedro", precio: 7400 },
-          { id: "adicionalCrema", nombre: "Adicional de crema o dulce", precio: 1000 },
-          { id: "adicionalMixto", nombre: "Adicional mixto (crema y dulce)", precio: 1700 },
-        ]
-      },
-      {
-        id: "vinosTintos",
-        nombre: "Vinos Tintos",
-        items: [
-          { id: "cafayate", nombre: "Cafayate (Cabernet, Malbec)", precio: 7800 },
-          { id: "otroLoco", nombre: "Otro Loco Mas (Malbec)", precio: 8400 },
-          { id: "cordero", nombre: "Cordero con Piel de Lobo (Malbec)", precio: 8800 },
-          { id: "santaJulia", nombre: "Santa Julia (Cabernet, Malbec, Syrah, Tempranillo)", precio: 8900 },
-          { id: "benjamin", nombre: "Benjamin (Cabernet, Malbec)", precio: 9300 },
-          { id: "calliaEsperado", nombre: "Callia Esperado (Cabernet, Syrah-Malbec)", precio: 9800 },
-          { id: "portilloCabernet", nombre: "Portillo (Cabernet, Malbec, Syrah)", precio: 10200 },
-          { id: "emilia", nombre: "Emilia (Cabernet, Malbec)", precio: 12300 },
-          { id: "latitud33Tinto", nombre: "Latitud 33 (Cabernet, Malbec, Syrah)", precio: 12300 },
-          { id: "gasconRoble", nombre: "Gascon Roble (Cabernet, Malbec)", precio: 12300 },
-          { id: "santaJuliaReserva", nombre: "Santa Julia Reserva (Cabernet, Malbec)", precio: 12700 },
-          { id: "cafayateReserva", nombre: "Cafayate Reserva (Cabernet, Malbec)", precio: 12800 },
-          { id: "trumpeter", nombre: "Trumpeter (Cabernet, Malbec)", precio: 14700 },
-          { id: "escorihuela", nombre: "Escorihuela Gascon (Malbec)", precio: 15500 },
-          { id: "altosPlata", nombre: "Altos del Plata (Cabernet, Malbec)", precio: 16900 },
-          { id: "pentagrama", nombre: "Pentagrama Reserva Especial (Cabernet Franc)", precio: 17200 },
-          { id: "laLinda", nombre: "Finca La Linda (Cabernet, Malbec)", precio: 17200 },
-          { id: "nicasia", nombre: "Nicasia (Red Blend)", precio: 17400 },
-          { id: "rutiniMalbec", nombre: "Rutini (Cabernet-Malbec)", precio: 24700 },
-          { id: "luigiBosca", nombre: "Luigi Bosca (Cabernet, Malbec)", precio: 25500 },
-        ]
-      },
-      {
-        id: "vinosBlancos",
-        nombre: "Vinos Blancos",
-        items: [
-          { id: "cafayateBlanco", nombre: "Cafayate (Chardonnay, Torrontés, Dulce tardío)", precio: 7800 },
-          { id: "calliaRose", nombre: "Callia (Rosé Amable tardío)", precio: 8800 },
-          { id: "santaJuliaBlanco", nombre: "Santa Julia (Chardonnay, Sauvignon Blanc)", precio: 8900 },
-          { id: "portilloBlanco", nombre: "Portillo (Sauvignon Blanc)", precio: 10200 },
-          { id: "santaJuliaTardio", nombre: "Santa Julia (Tardío)", precio: 10800 },
-          { id: "latitud33Blanco", nombre: "Latitud 33 (Chardonnay, Sauvignon Blanc)", precio: 12300 },
-          { id: "emiliaBlanco", nombre: "Emilia (Chardonnay)", precio: 12300 },
-          { id: "santaJuliaChenin", nombre: "Santa Julia (Chenin Dulce)", precio: 12400 },
-          { id: "trumpeterBlanco", nombre: "Trumpeter (Chardonnay, Sauvignon Blanc)", precio: 14700 },
-          { id: "altosPlataBlanco", nombre: "Altos del Plata (Chardonnay)", precio: 16900 },
-          { id: "laLindaChardonnay", nombre: "Finca La Linda (Chardonnay)", precio: 17200 },
-          { id: "rutiniBlanco", nombre: "Rutini (Gewurz Traminer, Riesling)", precio: 36500 },
-        ]
-      },
-      {
-        id: "espumantes",
-        nombre: "Espumantes",
-        items: [
-          { id: "callia", nombre: "Callia (Dulce Natural)", precio: 10300 },
-          { id: "mumm", nombre: "Mumm (Léger)", precio: 13300 },
-          { id: "pentagramaEsp", nombre: "Pentagrama (Brut Nature)", precio: 14200 },
-          { id: "latitud33Esp", nombre: "Latitud 33 (Dulce, Extra Brut)", precio: 15000 },
-          { id: "lasPerdices", nombre: "Las Perdices (Extra Brut, Dulce Natural)", precio: 19200 },
-        ]
-      },
-      {
-        id: "cervezas",
-        nombre: "Cervezas",
-        items: [
-          { id: "heinekenLitro", nombre: "Heineken (litro)", precio: 9000 },
-          { id: "heineken473", nombre: "Heineken (473 cc)", precio: 5600 },
-          { id: "imperialLitro", nombre: "Imperial Lager (litro)", precio: 6800 },
-          { id: "imperial473", nombre: "Imperial Lager (473 cc)", precio: 3800 },
-          { id: "imperialVariedades", nombre: "Imperial Stout, Amber, IPA (473 cc)", precio: 4300 },
-          { id: "corona", nombre: "Corona (330 cc)", precio: 5800 },
-        ]
-      },
-      {
-        id: "bebidas",
-        nombre: "Bebidas",
-        items: [
-          { id: "aguaSaborizada", nombre: "Agua saborizada (500 cc)", precio: 3600 },
-          { id: "aguaMesa", nombre: "Agua de mesa con o sin gas (500 cc)", precio: 3600 },
-          { id: "gaseosa", nombre: "Gaseosa (350 cc)", precio: 3600 },
-        ]
-      },
-      {
-        id: "menuInfantil",
-        nombre: "Menú Infantil",
-        items: [
-          { id: "supremaInfantil", nombre: "Suprema de pollo c/guarnición", precio: 9700 },
-          { id: "milanesaInfantil", nombre: "Milanesa de ternera c/guarnición", precio: 9700 },
-          { id: "merluzaInfantil", nombre: "Merluza a la romana c/guarnición", precio: 9500 },
-          { id: "noquiInfantil", nombre: "Ñoquis de papa con tuco o crema", precio: 7900 },
-          { id: "tallarinesInfantil", nombre: "Tallarines con tuco o crema", precio: 7400 },
-        ]
-      },
+      { id: "entradas", nombre: "Entradas", items: [
+        { id: "rabasALaMarinera", nombre: "Rabas a la marinera", precio: 16000, destacado: true },
+        { id: "crocanteDeLangostinos", nombre: "Crocante de Langostinos", descripcion: "Con dip de salsa tabasco y de canela con limón", precio: 17200 },
+        { id: "provoletaEspeciada", nombre: "Provoleta especiada", precio: 11800 },
+        { id: "provoletaRellena", nombre: "Provoleta rellena", descripcion: "Panceta, tomate y albahaca", precio: 13000 },
+        { id: "bastoncitosQueso", nombre: "Bastoncitos de queso rebozados", precio: 11000 },
+        { id: "empanadas", nombre: "Empanadas", descripcion: "Criollas, jamón y queso, queso y cebolla, pescado, choclo", precio: 3500 },
+      ]},
+      { id: "ensaladas", nombre: "Ensaladas", items: [
+        { id: "mixtaEnsalada", nombre: "Mixta", descripcion: "Lechuga, tomate y cebolla", precio: 4200 },
+        { id: "tricolor", nombre: "Tricolor", descripcion: "Zanahoria, remolacha y huevo", precio: 4200 },
+        { id: "duo", nombre: "Duo", descripcion: "Zanahoria o rúcula con huevo", precio: 4200 },
+        { id: "rucula", nombre: "Rúcula con lluvia de parmesano", precio: 4200 },
+        { id: "arcoiris", nombre: "Arcoiris", descripcion: "Lechuga, zanahoria, remolacha, tomate, papa y choclo", precio: 8200 },
+        { id: "marTierraEnsalada", nombre: "Mar & Tierra", descripcion: "Hojas verdes, croutons, cherries, crocante de panceta, cebolla, queso en cubos y ave", precio: 12600, destacado: true },
+        { id: "cesar", nombre: "César", precio: 12600 },
+      ]},
+      { id: "carnesBlancas", nombre: "Carnes Blancas", items: [
+        { id: "supremaToscana", nombre: "Suprema a la toscana", descripcion: "Con papas, mozzarella gratinada y champiñones a la provenzal", precio: 16800, destacado: true },
+        { id: "supremaMarTierra", nombre: "Suprema Mar & Tierra", descripcion: "Con papas, salsa de quesos, zanahoria y arveja", precio: 15700 },
+        { id: "supremaMaryland", nombre: "Suprema Maryland c/papas", precio: 15700 },
+        { id: "supremaPollo", nombre: "Suprema de pollo", precio: 8800 },
+        { id: "supremaNapolitana", nombre: "Suprema de pollo a la napolitana", precio: 10300 },
+        { id: "cuartoAve", nombre: "Cuarto de ave deshuesado", precio: 8800 },
+        { id: "carreRiojana", nombre: "Carré de cerdo a la Riojana", descripcion: "Jamón cocido, huevo frito, morrones, papas y arvejas", precio: 15800, imagen: "images/carre-riojana.jpg", destacado: true },
+        { id: "carreMostaza", nombre: "Carré de cerdo a la mostaza con papas", precio: 15800 },
+        { id: "carreMiel", nombre: "Carré de cerdo a la miel con puré rústico", precio: 15800 },
+        { id: "bondiolaQuesoAzul", nombre: "Bondiola de cerdo en queso azul", descripcion: "Con chop suey", precio: 15800 },
+        { id: "carreGrille", nombre: "Carré o bondiola de cerdo grillé", precio: 9600 },
+        { id: "salsasBlancas", nombre: "Salsas (mostaza, queso azul o verdeo)", precio: 3900 },
+      ]},
+      { id: "carnesRojas", nombre: "Carnes Rojas", items: [
+        { id: "ojoBife", nombre: "Ojo de bife bridado", descripcion: "Con jamón serrano a la pimienta con papas a la crema", precio: 19400 },
+        { id: "entrecotteMontanes", nombre: "Entrecotte montañés", descripcion: "Morrones, mozzarella y jamón serrano con salsa demiglace", precio: 18000, imagen: "images/entrecotte.jpg", destacado: true },
+        { id: "escalopeRelleno", nombre: "Escalope relleno al oporto y jerez", descripcion: "Con ensalada de verano", precio: 20300 },
+        { id: "milanesaTernera", nombre: "Milanesa de ternera", precio: 8800 },
+        { id: "milanesaNapolitana", nombre: "Milanesa de ternera a la napolitana", precio: 10600 },
+        { id: "milanesaToscana", nombre: "Milanesa a la toscana con guarnición", precio: 17400 },
+        { id: "costeleta", nombre: "Costeleta", precio: 9000 },
+        { id: "entrecotte", nombre: "Entrecotte", precio: 13500 },
+        { id: "bifeChorizo", nombre: "Bife de chorizo con guarnición", precio: 23000 },
+        { id: "salsasRojas", nombre: "Salsas (mostaza, queso azul o verdeo)", precio: 3900 },
+      ]},
+      { id: "pescadosMariscos", nombre: "Pescados y Mariscos", items: [
+        { id: "paella", nombre: "Paella", precio: 19000, imagen: "images/paella.jpg", destacado: true },
+        { id: "mariscada", nombre: "Mariscada", precio: 18200 },
+        { id: "langostinosAjillo", nombre: "Langostinos al ajillo c/papas locas", precio: 20700 },
+        { id: "cazuelaMariscos", nombre: "Cazuela de mariscos", precio: 18200, imagen: "images/cazuela-mariscos.jpg" },
+        { id: "mejillonesCrema", nombre: "Mejillones a la crema c/papas locas", precio: 16800 },
+        { id: "abadejoVerdeo", nombre: "Abadejo al verdeo con papas rejilla", precio: 19500 },
+        { id: "abadejoOlivas", nombre: "Abadejo en perfume de olivas y ajo", descripcion: "Sobre bouquet verde y zapallo grillado", precio: 19500 },
+        { id: "truchaLimon", nombre: "Trucha del sur al limón y pimienta negra", precio: 21000 },
+        { id: "truchaRellena", nombre: "Trucha rellena con papas gratinadas", precio: 22300 },
+        { id: "pacuCriolla", nombre: "Pacú con salsa criolla y puré rústico", precio: 20000, imagen: "images/pacu-criolla.jpg", destacado: true },
+        { id: "bogaCapresse", nombre: "Boga capresse con puré moscado", precio: 23600 },
+        { id: "doradoCriolla", nombre: "Dorado c/salsa criolla y guarnición", precio: 23000 },
+        { id: "salmonGrillado", nombre: "Salmón rosado grillado c/guarnición", precio: 24400, imagen: "images/salmon-grillado.jpg", destacado: true },
+        { id: "merluzaRomana", nombre: "Merluza a la romana c/guarnición", precio: 12600 },
+        { id: "merluzaVerdeo", nombre: "Merluza al verdeo con papas", precio: 14800 },
+      ]},
+      { id: "pastas", nombre: "Nuestras Pastas", items: [
+        { id: "tagliatellesFrutti", nombre: "Tagliatelles de espinaca al frutti di mare", precio: 15500, destacado: true },
+        { id: "lasagnaMar", nombre: "Lasagna de mar", precio: 11500 },
+        { id: "sorrentinosSalmon", nombre: "Sorrentinos de Salmón", precio: 10400 },
+        { id: "sorrentinosCalabaza", nombre: "Sorrentinos de calabaza y muzzarella", precio: 8300 },
+        { id: "sorrentinosRicota", nombre: "Sorrentinos de ricota, jamón y nuez", precio: 8300, imagen: "images/sorrentinos.jpg", destacado: true },
+        { id: "sorrentinosJamon", nombre: "Sorrentinos de jamón y queso", precio: 8300 },
+        { id: "noquis", nombre: "Ñoquis de papa", precio: 7200 },
+        { id: "tallarines", nombre: "Tallarines al huevo", precio: 6400 },
+        { id: "ravioles", nombre: "Ravioles de verdura y carne", precio: 7800 },
+        { id: "canelones", nombre: "Canelones de verdura y carne", precio: 8700 },
+        { id: "lasagnaVerdura", nombre: "Lasagna de verdura y carne", precio: 9800 },
+      ]},
+      { id: "salsas", nombre: "Salsas", items: [
+        { id: "tuco", nombre: "Tuco", precio: 3200 },
+        { id: "fileto", nombre: "Fileto", precio: 3200 },
+        { id: "bolognesa", nombre: "Bolognesa", precio: 3600 },
+        { id: "mixta", nombre: "Mixta o crema", precio: 3600 },
+        { id: "roquefort", nombre: "Roquefort o verdeo", precio: 3900 },
+        { id: "holandesa", nombre: "Holandesa", precio: 4600 },
+        { id: "champignon", nombre: "Champignon", precio: 4600 },
+        { id: "cremaCaramones", nombre: "Crema de camarones", precio: 6800 },
+        { id: "frutosMar", nombre: "Frutos de mar", precio: 8100 },
+        { id: "adicionalPeceto", nombre: "Adicional de peceto", precio: 6000 },
+      ]},
+      { id: "guarniciones", nombre: "Guarniciones", items: [
+        { id: "papasFritasBaston", nombre: "Papas fritas bastón", precio: 4200 },
+        { id: "papasFritasCarre", nombre: "Papas fritas carré", precio: 4200 },
+        { id: "papasNaturales", nombre: "Papas naturales", precio: 3600 },
+        { id: "purePapas", nombre: "Puré de papas", precio: 4200 },
+        { id: "pureCalabacin", nombre: "Puré de calabacín", precio: 4400 },
+        { id: "pureMixto", nombre: "Puré mixto (calabacín y papas)", precio: 4200 },
+        { id: "papasCrema", nombre: "Papas a la crema", precio: 4400 },
+        { id: "chopSuey", nombre: "Chop Suey", precio: 4400 },
+      ]},
+      { id: "postres", nombre: "Postres", items: [
+        { id: "tiramisu", nombre: "Tiramisú", precio: 5000, imagen: "images/tiramisu.jpg", destacado: true },
+        { id: "brownie", nombre: "Brownie con helado de crema", precio: 5500, imagen: "images/brownie.jpg", destacado: true },
+        { id: "perasMerlot", nombre: "Peras al Merlot con helado de crema", precio: 4800, imagen: "images/pera-chocolate.jpg" },
+        { id: "panqueque", nombre: "Panqueque de dulce de leche con helado", precio: 5000, imagen: "images/panqueques.jpg" },
+        { id: "copaMT", nombre: "Copa Mar & Tierra", descripcion: "Helado de chocolate, crema chantilly, dulce de leche, nueces, almendras tostadas y galletas dulces", precio: 5700, imagen: "images/helado-artesanal.jpg", destacado: true },
+        { id: "copaAfricana", nombre: "Copa Africana", descripcion: "Helado de chocolate, brownie, crema moka y crocante de maní con chocolate", precio: 5700, imagen: "images/copa-africana.jpg" },
+        { id: "flan", nombre: "Flan casero", precio: 3300, imagen: "images/flan.jpg" },
+        { id: "budinPan", nombre: "Budín de pan casero", precio: 3300, imagen: "images/budin-de-pan.jpg" },
+        { id: "helado", nombre: "Helado (bocha individual)", precio: 2500 },
+        { id: "bombon", nombre: "Bombón escocés", precio: 4200 },
+        { id: "higosAlmibar", nombre: "Higos en almíbar con crema o queso", precio: 4800, imagen: "images/higos.jpg" },
+        { id: "lemonchamp", nombre: "Lemonchamp", precio: 7400 },
+        { id: "donPedro", nombre: "Don Pedro", precio: 7400 },
+        { id: "adicionalCrema", nombre: "Adicional de crema o dulce", precio: 1000 },
+        { id: "adicionalMixto", nombre: "Adicional mixto (crema y dulce)", precio: 1700 },
+      ]},
+      { id: "vinosTintos", nombre: "Vinos Tintos", items: [
+        { id: "cafayate", nombre: "Cafayate (Cabernet, Malbec)", precio: 7800 },
+        { id: "otroLoco", nombre: "Otro Loco Mas (Malbec)", precio: 8400 },
+        { id: "cordero", nombre: "Cordero con Piel de Lobo (Malbec)", precio: 8800 },
+        { id: "santaJulia", nombre: "Santa Julia (Cabernet, Malbec, Syrah, Tempranillo)", precio: 8900 },
+        { id: "benjamin", nombre: "Benjamin (Cabernet, Malbec)", precio: 9300 },
+        { id: "calliaEsperado", nombre: "Callia Esperado (Cabernet, Syrah-Malbec)", precio: 9800 },
+        { id: "portilloCabernet", nombre: "Portillo (Cabernet, Malbec, Syrah)", precio: 10200 },
+        { id: "emilia", nombre: "Emilia (Cabernet, Malbec)", precio: 12300 },
+        { id: "latitud33Tinto", nombre: "Latitud 33 (Cabernet, Malbec, Syrah)", precio: 12300 },
+        { id: "gasconRoble", nombre: "Gascon Roble (Cabernet, Malbec)", precio: 12300 },
+        { id: "santaJuliaReserva", nombre: "Santa Julia Reserva (Cabernet, Malbec)", precio: 12700 },
+        { id: "cafayateReserva", nombre: "Cafayate Reserva (Cabernet, Malbec)", precio: 12800 },
+        { id: "trumpeter", nombre: "Trumpeter (Cabernet, Malbec)", precio: 14700 },
+        { id: "escorihuela", nombre: "Escorihuela Gascon (Malbec)", precio: 15500 },
+        { id: "altosPlata", nombre: "Altos del Plata (Cabernet, Malbec)", precio: 16900 },
+        { id: "pentagrama", nombre: "Pentagrama Reserva Especial (Cabernet Franc)", precio: 17200 },
+        { id: "laLinda", nombre: "Finca La Linda (Cabernet, Malbec)", precio: 17200 },
+        { id: "nicasia", nombre: "Nicasia (Red Blend)", precio: 17400 },
+        { id: "rutiniMalbec", nombre: "Rutini (Cabernet-Malbec)", precio: 24700 },
+        { id: "luigiBosca", nombre: "Luigi Bosca (Cabernet, Malbec)", precio: 25500 },
+      ]},
+      { id: "vinosBlancos", nombre: "Vinos Blancos", items: [
+        { id: "cafayateBlanco", nombre: "Cafayate (Chardonnay, Torrontés, Dulce tardío)", precio: 7800 },
+        { id: "calliaRose", nombre: "Callia (Rosé Amable tardío)", precio: 8800 },
+        { id: "santaJuliaBlanco", nombre: "Santa Julia (Chardonnay, Sauvignon Blanc)", precio: 8900 },
+        { id: "portilloBlanco", nombre: "Portillo (Sauvignon Blanc)", precio: 10200 },
+        { id: "santaJuliaTardio", nombre: "Santa Julia (Tardío)", precio: 10800 },
+        { id: "latitud33Blanco", nombre: "Latitud 33 (Chardonnay, Sauvignon Blanc)", precio: 12300 },
+        { id: "emiliaBlanco", nombre: "Emilia (Chardonnay)", precio: 12300 },
+        { id: "santaJuliaChenin", nombre: "Santa Julia (Chenin Dulce)", precio: 12400 },
+        { id: "trumpeterBlanco", nombre: "Trumpeter (Chardonnay, Sauvignon Blanc)", precio: 14700 },
+        { id: "altosPlataBlanco", nombre: "Altos del Plata (Chardonnay)", precio: 16900 },
+        { id: "laLindaChardonnay", nombre: "Finca La Linda (Chardonnay)", precio: 17200 },
+        { id: "rutiniBlanco", nombre: "Rutini (Gewurz Traminer, Riesling)", precio: 36500 },
+      ]},
+      { id: "espumantes", nombre: "Espumantes", items: [
+        { id: "callia", nombre: "Callia (Dulce Natural)", precio: 10300 },
+        { id: "mumm", nombre: "Mumm (Léger)", precio: 13300 },
+        { id: "pentagramaEsp", nombre: "Pentagrama (Brut Nature)", precio: 14200 },
+        { id: "latitud33Esp", nombre: "Latitud 33 (Dulce, Extra Brut)", precio: 15000 },
+        { id: "lasPerdices", nombre: "Las Perdices (Extra Brut, Dulce Natural)", precio: 19200 },
+      ]},
+      { id: "cervezas", nombre: "Cervezas", items: [
+        { id: "heinekenLitro", nombre: "Heineken (litro)", precio: 9000 },
+        { id: "heineken473", nombre: "Heineken (473 cc)", precio: 5600 },
+        { id: "imperialLitro", nombre: "Imperial Lager (litro)", precio: 6800 },
+        { id: "imperial473", nombre: "Imperial Lager (473 cc)", precio: 3800 },
+        { id: "imperialVariedades", nombre: "Imperial Stout, Amber, IPA (473 cc)", precio: 4300 },
+        { id: "corona", nombre: "Corona (330 cc)", precio: 5800 },
+      ]},
+      { id: "bebidas", nombre: "Bebidas", items: [
+        { id: "aguaSaborizada", nombre: "Agua saborizada (500 cc)", precio: 3600 },
+        { id: "aguaMesa", nombre: "Agua de mesa con o sin gas (500 cc)", precio: 3600 },
+        { id: "gaseosa", nombre: "Gaseosa (350 cc)", precio: 3600 },
+      ]},
+      { id: "menuInfantil", nombre: "Menú Infantil", items: [
+        { id: "supremaInfantil", nombre: "Suprema de pollo c/guarnición", precio: 9700 },
+        { id: "milanesaInfantil", nombre: "Milanesa de ternera c/guarnición", precio: 9700 },
+        { id: "merluzaInfantil", nombre: "Merluza a la romana c/guarnición", precio: 9500 },
+        { id: "noquiInfantil", nombre: "Ñoquis de papa con tuco o crema", precio: 7900 },
+        { id: "tallarinesInfantil", nombre: "Tallarines con tuco o crema", precio: 7400 },
+      ]},
     ];
 
     // State
@@ -526,7 +527,6 @@
         if (saved.orderType) { orderType = saved.orderType; applyOrderType(); }
         if (saved.paymentMethod) { paymentMethod = saved.paymentMethod; applyPaymentMethod(); }
       } catch(e) {}
-      // Guardar al cambiar cualquier input
       ['input-nombre','input-mesa','input-direccion'].forEach(id => {
         document.getElementById(id).addEventListener('input', saveData);
       });
@@ -577,7 +577,7 @@
       }
     }
 
-    // Drag-to-scroll para categorías en móvil
+    // Drag-to-scroll
     function setupCategoryDrag() {
       const el = document.getElementById('category-scroll');
       if (!el) return;
@@ -644,7 +644,6 @@
           }
         });
       }, options);
-
       menuData.forEach(cat => {
         const section = document.getElementById(`section-${cat.id}`);
         if (section) observer.observe(section);
@@ -670,7 +669,6 @@
     function renderMenuItem(item) {
       const quantity = cart[item.id] || 0;
       const hasImage = item.imagen;
-      
       return `
         <div class="group bg-card rounded-xl border ${item.destacado ? 'border-primary/30 ring-1 ring-primary/20' : 'border-border'} ${quantity > 0 ? 'border-primary/60' : ''} overflow-hidden transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
           ${hasImage ? `
@@ -741,20 +739,20 @@
 
       const badge = document.getElementById('cart-badge');
       const totalEl = document.getElementById('cart-total');
-      const whatsappBtn = document.getElementById('whatsapp-btn');
+      const enviarBtn = document.getElementById('enviar-btn');
 
       badge.textContent = totalItems;
       badge.classList.toggle('hidden', totalItems === 0);
       totalEl.textContent = formatPrice(totalPrice);
 
       if (totalItems > 0) {
-        whatsappBtn.disabled = false;
-        whatsappBtn.classList.remove('bg-muted', 'text-muted-foreground');
-        whatsappBtn.classList.add('bg-whatsapp', 'text-white', 'hover:bg-whatsapp/90');
+        enviarBtn.disabled = false;
+        enviarBtn.classList.remove('bg-muted', 'text-muted-foreground');
+        enviarBtn.classList.add('bg-primary', 'text-primary-foreground', 'hover:bg-primary/90');
       } else {
-        whatsappBtn.disabled = true;
-        whatsappBtn.classList.add('bg-muted', 'text-muted-foreground');
-        whatsappBtn.classList.remove('bg-whatsapp', 'text-white', 'hover:bg-whatsapp/90');
+        enviarBtn.disabled = true;
+        enviarBtn.classList.add('bg-muted', 'text-muted-foreground');
+        enviarBtn.classList.remove('bg-primary', 'text-primary-foreground', 'hover:bg-primary/90');
       }
     }
 
@@ -774,46 +772,66 @@
       }).format(price);
     }
 
-    // WhatsApp
-    function sendToWhatsApp() {
+    // ── ENVIAR PEDIDO A FIREBASE ──────────────────────────────────────────────
+    async function enviarPedido() {
       const nombre = document.getElementById('input-nombre').value.trim();
       const mesa = document.getElementById('input-mesa').value.trim();
       const direccion = document.getElementById('input-direccion').value.trim();
 
-      const payLabels = { efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', tarjeta: '💳 Tarjeta' };
-      let mensaje = '*Nuevo Pedido - Mar & Tierra*\n\n';
-      
-      if (nombre) mensaje += `*Nombre:* ${nombre}\n`;
-      
-      if (orderType === 'mesa' && mesa) {
-        mensaje += `*Mesa:* ${mesa}\n`;
-      } else if (orderType === 'delivery' && direccion) {
-        mensaje += `*Tipo:* Delivery\n*Dirección:* ${direccion}\n`;
-      } else if (orderType === 'retiro') {
-        mensaje += `*Tipo:* Retiro en local\n`;
+      // Validación básica
+      if (orderType === 'mesa' && !mesa) {
+        alert('Por favor ingresá el número de mesa.');
+        return;
       }
-      
-      mensaje += '\n*Pedido:*\n';
-      
-      let total = 0;
-      Object.entries(cart).forEach(([itemId, qty]) => {
-        const item = findItem(itemId);
-        if (item) {
-          const subtotal = item.precio * qty;
-          total += subtotal;
-          mensaje += `• ${qty}x ${item.nombre} - ${formatPrice(subtotal)}\n`;
-        }
-      });
-      
-      mensaje += `\n*Total: ${formatPrice(total)}*`;
-      mensaje += `\n*Método de pago:* ${payLabels[paymentMethod] || paymentMethod}`;
-      if (orderType === 'delivery') {
-        mensaje += '\n_(El costo del envío corre por cuenta de la cadetería)_';
+      if (orderType === 'delivery' && !direccion) {
+        alert('Por favor ingresá la dirección de entrega.');
+        return;
       }
 
-      const phoneNumber = '543584867134'; // Cambiar por el número real
-      const encodedMessage = encodeURIComponent(mensaje);
-      window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+      // Armar los items del carrito
+      const items = Object.entries(cart).map(([itemId, cantidad]) => {
+        const item = findItem(itemId);
+        return { id: itemId, nombre: item.nombre, precio: item.precio, cantidad };
+      });
+
+      const total = items.reduce((sum, i) => sum + i.precio * i.cantidad, 0);
+
+      const pedidoData = {
+        tipo: orderType,
+        cliente: {
+          nombre: nombre || 'Sin nombre',
+          mesa: orderType === 'mesa' ? mesa : null,
+          direccion: orderType === 'delivery' ? direccion : null,
+        },
+        items,
+        total,
+        metodoPago: paymentMethod,
+      };
+
+      // Deshabilitar botón mientras se envía
+      const btn = document.getElementById('enviar-btn');
+      const btnText = document.getElementById('enviar-btn-text');
+      btn.disabled = true;
+      btnText.textContent = 'Enviando...';
+
+      try {
+        await window.enviarPedidoFirebase(pedidoData);
+        // Limpiar carrito
+        cart = {};
+        updateCartUI();
+        renderMenu();
+        // Mostrar modal de confirmación
+        document.getElementById('modal-confirmacion').classList.add('active');
+      } catch (error) {
+        alert('Hubo un error al enviar el pedido. Por favor intentá de nuevo.');
+        console.error(error);
+        btn.disabled = false;
+        btnText.textContent = 'Enviar pedido';
+      }
+    }
+
+    function cerrarModal() {
+      document.getElementById('modal-confirmacion').classList.remove('active');
     }
   </script>
 </body>
