@@ -491,10 +491,30 @@
     ];
 
     // State
-    let cart = {};
+    let cart = {};        // { itemId: cantidad }
+    let cartObs = {};     // { itemId: observacion }
     let orderType = 'mesa';
     let paymentMethod = 'efectivo';
     let activeCategory = menuData[0].id;
+
+    // Mapeo de categoría → curso (para agrupar en Firebase igual que la app)
+    const cursoPorCategoria = {
+      entradas:        'entradas',
+      ensaladas:       'entradas',
+      menuInfantil:    'principales',
+      carnesBlancas:   'principales',
+      carnesRojas:     'principales',
+      pescadosMariscos:'principales',
+      pastas:          'principales',
+      salsas:          'principales',
+      guarniciones:    'principales',
+      postres:         'postres',
+      vinosTintos:     'bebidas',
+      vinosBlancos:    'bebidas',
+      espumantes:      'bebidas',
+      cervezas:        'bebidas',
+      bebidas:         'bebidas',
+    };
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
@@ -668,6 +688,7 @@
 
     function renderMenuItem(item) {
       const quantity = cart[item.id] || 0;
+      const obs = cartObs[item.id] || '';
       const hasImage = item.imagen;
       return `
         <div class="group bg-card rounded-xl border ${item.destacado ? 'border-primary/30 ring-1 ring-primary/20' : 'border-border'} ${quantity > 0 ? 'border-primary/60' : ''} overflow-hidden transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
@@ -709,6 +730,16 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               </button>
             </div>
+            ${quantity > 0 ? `
+              <input
+                type="text"
+                value="${obs.replace(/"/g, '&quot;')}"
+                oninput="setObsItem('${item.id}', this.value)"
+                placeholder="📝 Aclaración (ej: sin cebolla, término medio...)"
+                class="mt-2 w-full bg-input border border-border rounded-lg px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                style="border-color: #f59e0b33;"
+              >
+            ` : ''}
           </div>
         </div>
       `;
@@ -724,10 +755,17 @@
     function removeFromCart(itemId) {
       if (cart[itemId] > 0) {
         cart[itemId]--;
-        if (cart[itemId] === 0) delete cart[itemId];
+        if (cart[itemId] === 0) {
+          delete cart[itemId];
+          delete cartObs[itemId];
+        }
         updateCartUI();
         renderMenu();
       }
+    }
+
+    function setObsItem(itemId, value) {
+      cartObs[itemId] = value;
     }
 
     function updateCartUI() {
@@ -788,13 +826,29 @@
         return;
       }
 
-      // Armar los items del carrito
+      // Armar los items del carrito con observaciones
       const items = Object.entries(cart).map(([itemId, cantidad]) => {
         const item = findItem(itemId);
-        return { id: itemId, nombre: item.nombre, precio: item.precio, cantidad };
+        return { id: itemId, nombre: item.nombre, precio: item.precio, cantidad, observacion: cartObs[itemId] || '' };
       });
 
       const total = items.reduce((sum, i) => sum + i.precio * i.cantidad, 0);
+
+      // Armar cursos agrupados (para que la app los muestre por categoría)
+      const cursos = { entradas: [], principales: [], postres: [], bebidas: [] };
+      for (const category of menuData) {
+        const curso = cursoPorCategoria[category.id] || 'principales';
+        for (const menuItem of category.items) {
+          if (cart[menuItem.id]) {
+            cursos[curso].push({
+              nombre: menuItem.nombre,
+              precio: menuItem.precio,
+              cantidad: cart[menuItem.id],
+              observacion: cartObs[menuItem.id] || '',
+            });
+          }
+        }
+      }
 
       const pedidoData = {
         tipo: orderType,
@@ -804,6 +858,7 @@
           direccion: orderType === 'delivery' ? direccion : null,
         },
         items,
+        cursos,
         total,
         metodoPago: paymentMethod,
       };
@@ -818,6 +873,7 @@
         await window.enviarPedidoFirebase(pedidoData);
         // Limpiar carrito
         cart = {};
+        cartObs = {};
         updateCartUI();
         renderMenu();
         // Mostrar modal de confirmación
