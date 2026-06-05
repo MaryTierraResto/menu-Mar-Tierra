@@ -74,17 +74,11 @@
   <section class="bg-popover/95 backdrop-blur-sm rounded-xl border border-border p-4 md:p-6 mx-4 mt-4 relative z-20 max-w-2xl md:mx-auto">
     <h2 class="text-lg font-semibold text-foreground mb-4 text-center">¿Cómo querés tu pedido?</h2>
     <div class="flex gap-2 mb-4">
-      <button onclick="setOrderType('mesa')"     id="btn-mesa"     class="order-type-btn flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all bg-primary text-primary-foreground">Mesa</button>
-      <button onclick="setOrderType('delivery')" id="btn-delivery" class="order-type-btn flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80">Delivery</button>
+      <button onclick="setOrderType('delivery')" id="btn-delivery" class="order-type-btn flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all bg-primary text-primary-foreground">Delivery</button>
       <button onclick="setOrderType('retiro')"   id="btn-retiro"   class="order-type-btn flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all bg-secondary text-secondary-foreground hover:bg-secondary/80">Retiro</button>
     </div>
 
     <div id="order-fields" class="space-y-3">
-      <!-- Campo Mesa -->
-      <div id="field-mesa">
-        <label class="block text-sm text-muted-foreground mb-1">Número de mesa</label>
-        <input type="text" id="input-mesa" placeholder="Ej: 5" class="w-full bg-input border border-border rounded-lg px-4 py-2.5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50">
-      </div>
 
       <!-- Campo Delivery -->
       <div id="field-delivery" class="hidden space-y-2">
@@ -188,15 +182,7 @@
     import { initializeApp }    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp }
       from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAFoEGL092yCKzaHQe7BcjIMtsvxB1QJQQ",
-      authDomain: "martierra-delivery.firebaseapp.com",
-      projectId: "martierra-delivery",
-      storageBucket: "martierra-delivery.firebasestorage.app",
-      messagingSenderId: "820403586444",
-      appId: "1:820403586444:web:8948027ab1280b5f2802a9"
-    };
+    import { firebaseConfig } from './config/firebase.public.js';
 
     const app = initializeApp(firebaseConfig);
     const db  = getFirestore(app);
@@ -238,7 +224,7 @@
     let menuData      = [];   // se llena desde Firestore
     let cart          = {};   // { itemId: cantidad }
     let cartObs       = {};   // { itemId: observacion }
-    let orderType     = 'mesa';
+    let orderType     = 'delivery';
     let paymentMethod = 'efectivo';
     let activeCategory = null;
 
@@ -284,9 +270,8 @@
       return menuData.map(cat => ({
         ...cat,
         items: cat.items.filter(item => {
-          if (orderType === 'delivery') return item.disponibleDelivery;
-          if (orderType === 'retiro')   return item.disponibleRetiro;
-          return item.disponibleMesa; // mesa
+          if (orderType === 'retiro') return item.disponibleRetiro;
+          return item.disponibleDelivery; // delivery por defecto
         })
       })).filter(cat => cat.items.length > 0);
     }
@@ -308,7 +293,6 @@
     function saveData() {
       const data = {
         nombre:    document.getElementById('input-nombre').value,
-        mesa:      document.getElementById('input-mesa').value,
         direccion: document.getElementById('input-direccion').value,
         telefonoDelivery: document.getElementById('input-telefono-delivery').value,
         telefonoRetiro:   document.getElementById('input-telefono-retiro').value,
@@ -322,14 +306,13 @@
         const saved = JSON.parse(localStorage.getItem('martierra_client') || 'null');
         if (!saved) return;
         if (saved.nombre)           document.getElementById('input-nombre').value            = saved.nombre;
-        if (saved.mesa)             document.getElementById('input-mesa').value              = saved.mesa;
         if (saved.direccion)        document.getElementById('input-direccion').value         = saved.direccion;
         if (saved.telefonoDelivery) document.getElementById('input-telefono-delivery').value = saved.telefonoDelivery;
         if (saved.telefonoRetiro)   document.getElementById('input-telefono-retiro').value   = saved.telefonoRetiro;
         if (saved.orderType)     { orderType = saved.orderType; applyOrderType(); }
         if (saved.paymentMethod) { paymentMethod = saved.paymentMethod; applyPaymentMethod(); }
       } catch(e) {}
-      ['input-nombre','input-mesa','input-direccion','input-telefono-delivery','input-telefono-retiro'].forEach(id => {
+      ['input-nombre','input-direccion','input-telefono-delivery','input-telefono-retiro'].forEach(id => {
         document.getElementById(id)?.addEventListener('input', saveData);
       });
     }
@@ -354,10 +337,8 @@
         activeBtn.classList.add('bg-primary','text-primary-foreground');
       }
       // Mostrar/ocultar campos
-      document.getElementById('field-mesa').classList.add('hidden');
       document.getElementById('field-delivery').classList.add('hidden');
       document.getElementById('field-retiro').classList.add('hidden');
-      if (orderType === 'mesa')     document.getElementById('field-mesa').classList.remove('hidden');
       if (orderType === 'delivery') document.getElementById('field-delivery').classList.remove('hidden');
       if (orderType === 'retiro')   document.getElementById('field-retiro').classList.remove('hidden');
     }
@@ -553,13 +534,18 @@
     // ── Enviar pedido ─────────────────────────────────────────────────────────
     async function enviarPedido() {
       const nombre    = document.getElementById('input-nombre').value.trim();
-      const mesa      = document.getElementById('input-mesa').value.trim();
       const direccion = document.getElementById('input-direccion').value.trim();
       const telDelivery = document.getElementById('input-telefono-delivery').value.trim();
       const telRetiro   = document.getElementById('input-telefono-retiro').value.trim();
 
-      if (orderType === 'mesa'     && !mesa)      { alert('Por favor ingresá el número de mesa.'); return; }
-      if (orderType === 'delivery' && !direccion) { alert('Por favor ingresá la dirección de entrega.'); return; }
+      // Validaciones según tipo de pedido
+      if (orderType === 'mesa' && !mesa) { alert('Por favor ingresá el número de mesa.'); return; }
+      
+      if (orderType === 'delivery') {
+        if (!direccion) { alert('Por favor ingresá la dirección de entrega.'); return; }
+        if (!telDelivery) { alert('Por favor ingresá un teléfono de contacto.'); return; }
+      }
+      if (orderType === 'retiro' && !telRetiro) { alert('Por favor ingresá un teléfono para avisarte cuando esté listo.'); return; }
 
       // Armar items con observaciones
       const items = Object.entries(cart).map(([itemId, cantidad]) => {
@@ -583,7 +569,6 @@
         tipo: orderType,
         cliente: {
           nombre:    nombre || 'Sin nombre',
-          mesa:      orderType === 'mesa'     ? mesa      : null,
           direccion: orderType === 'delivery' ? direccion : null,
           telefono:  orderType === 'delivery' ? telDelivery : orderType === 'retiro' ? telRetiro : null,
         },
